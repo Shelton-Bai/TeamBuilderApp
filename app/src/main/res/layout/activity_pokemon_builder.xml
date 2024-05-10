@@ -5,29 +5,116 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonBuilderActivity">
-
-    <TextView
-        android:id="@+id/PokemonLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pokemon"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+    tools:context=".ActivityPokemonBuilder">
 
     <EditText
         android:id="@+id/pokemonSearchBar"
+        android:layout_width="212dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:hint="Pokemon"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/itemSearchBar"
+        android:layout_width="212dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Item"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/pokemonSearchBar"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonSearchBar" />
+
+    <EditText
+        android:id="@+id/abilitySearchBar"
+        android:layout_width="212dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Ability"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/itemSearchBar"
+        app:layout_constraintTop_toBottomOf="@+id/itemSearchBar" />
+
+    <Button
+        android:id="@+id/movesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:onClick="onMovesButtonClick"
+        android:text="Moves"
+        app:layout_constraintStart_toEndOf="@+id/pokemonSearchBar"
+        app:layout_constraintTop_toTopOf="@+id/pokemonSearchBar" />
+
+    <Button
+        android:id="@+id/statsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onStatsButtonClick"
+        android:text="Stats"
+        app:layout_constraintStart_toStartOf="@+id/movesButton"
+        app:layout_constraintTop_toBottomOf="@+id/movesButton" />
+
+    <Button
+        android:id="@+id/detailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onDetailsButtonClick"
+        android:text="Details"
+        app:layout_constraintStart_toStartOf="@+id/statsButton"
+        app:layout_constraintTop_toBottomOf="@+id/statsButton" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="SearchResults"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterStringBar">
+
+        <LinearLayout
+            android:id="@+id/pokemonSearchResultTarget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/filterStringBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Filter String"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/PokemonLabel"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/PokemonLabel"
-        app:layout_constraintTop_toBottomOf="@+id/PokemonLabel" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/abilitySearchBar" />
+
+    <Button
+        android:id="@+id/backToTeamBuilder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Back to Teambuilder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/sendFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onFilterButtonClick"
+        android:text="Filter"
+        app:layout_constraintStart_toStartOf="@+id/detailsButton"
+        app:layout_constraintTop_toTopOf="@+id/filterStringBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

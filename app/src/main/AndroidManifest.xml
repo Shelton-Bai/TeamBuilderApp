@@ -13,16 +13,25 @@
         android:theme="@style/Theme.TeamBuilderApp"
         tools:targetApi="31">
         <activity
-            android:name=".PokemonBuilderActivity"
+            android:name=".ActivityDetails"
             android:exported="false" />
         <activity
-            android:name=".TeamBuilderActivity"
+            android:name=".ActivityStats"
             android:exported="true" />
         <activity
-            android:name=".TeamsActivity"
+            android:name=".ActivityMoves"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityPokemonBuilder"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityTeambuilder"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityTeams"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityMain"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,7 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 
-public class TeamBuilderActivity extends AppCompatActivity {
+public class ActivityTeambuilder extends AppCompatActivity {
 	private String TAG = "oogabooga";
 	PokemonTeam team;
 	Intent intent;

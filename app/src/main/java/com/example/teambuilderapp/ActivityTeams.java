@@ -17,11 +17,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class TeamsActivity extends AppCompatActivity {
+public class ActivityTeams extends AppCompatActivity {
 	private String TAG = "oogabooga";
 	public final int EDIT_TEAM = 1;
 	public final int MAKE_TEAM = 0;
@@ -94,7 +92,7 @@ public class TeamsActivity extends AppCompatActivity {
 	public void newTeam(View v){
 		PokemonTeam newTeam = new PokemonTeam("New Team");
 		
-		Intent intent = new Intent(this, TeamBuilderActivity.class);
+		Intent intent = new Intent(this, ActivityTeambuilder.class);
 		intent.putExtra("action", "create");
 		intent.putExtra("team", newTeam);
 		intent.putExtra("index", teams.size());
@@ -103,7 +101,7 @@ public class TeamsActivity extends AppCompatActivity {
 	
 	public void editTeam(PokemonTeam team, int index){
 		Log.d(TAG, "onClick: editteam");
-		Intent intent = new Intent(getApplicationContext(), TeamBuilderActivity.class);
+		Intent intent = new Intent(getApplicationContext(), ActivityTeambuilder.class);
 		intent.putExtra("action", "edit");
 		intent.putExtra("index", index);
 		intent.putExtra("team", team);
