@@ -46,27 +46,27 @@ public class ActivityTeambuilder extends AppCompatActivity {
 		LinearLayout searchResults = findViewById(R.id.searchResults);
 		
 		//set initial pokemon to show
-		ArrayList<String> pokemon = pokemonSearch("");
-		String result = "initial" + ": ";
-		for(String mon : pokemon){
-			result += mon + ",";
-			
-			TextView pText = new TextView(getApplicationContext());
-			pText.setText(mon);
-			pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-			pText.setPadding(60, 20, 5, 5);
-			
-			pText.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					addPokemon(mon, team);
-				}
-			});
-			
-			searchResults.addView(pText);
-			
-		}
-		Log.d("oogabooga", result);
+//		ArrayList<String> pokemon = pokemonSearch("");
+//		String result = "initial" + ": ";
+//		for(String mon : pokemon){
+//			result += mon + ",";
+//
+//			TextView pText = new TextView(getApplicationContext());
+//			pText.setText(mon);
+//			pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+//			pText.setPadding(60, 20, 5, 5);
+//
+//			pText.setOnClickListener(new View.OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					addPokemon(mon, team);
+//				}
+//			});
+//
+//			searchResults.addView(pText);
+//
+//		}
+//		Log.d("oogabooga", result);
 		
 		pokemonSearch.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -79,27 +79,27 @@ public class ActivityTeambuilder extends AppCompatActivity {
 				String newText = s.toString();
 				searchResults.removeAllViews();
 				
-				ArrayList<String> pokemon = pokemonSearch(newText);
-				String result = newText + ": ";
-				for(String mon : pokemon){
-					result += mon + ",";
-					
-					TextView pText = new TextView(getApplicationContext());
-					pText.setText(mon);
-					pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-					pText.setPadding(60, 20, 5, 5);
-					
-					pText.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							addPokemon(mon, team);
-						}
-					});
-					
-					searchResults.addView(pText);
-					
-				}
-				Log.d("oogabooga", result);
+//				ArrayList<String> pokemon = pokemonSearch(newText);
+//				String result = newText + ": ";
+//				for(String mon : pokemon){
+//					result += mon + ",";
+//
+//					TextView pText = new TextView(getApplicationContext());
+//					pText.setText(mon);
+//					pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+//					pText.setPadding(60, 20, 5, 5);
+//
+//					pText.setOnClickListener(new View.OnClickListener() {
+//						@Override
+//						public void onClick(View v) {
+//							addPokemon(mon, team);
+//						}
+//					});
+//
+//					searchResults.addView(pText);
+//
+//				}
+//				Log.d("oogabooga", result);
 			}
 			
 			@Override

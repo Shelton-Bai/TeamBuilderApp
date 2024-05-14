@@ -42,5 +42,10 @@ public class PokemonEntity {
 	
 	public String tag; //whether a pokemon is legendary, sublegend, mythical, or paradox, etc. (can be null)
 	
+	public PokemonEntity(String name, String type1, String type2){
+		this.name = name;
+		this.type1 = type1;
+		this.type2 = type2;
+	}
 	
 }

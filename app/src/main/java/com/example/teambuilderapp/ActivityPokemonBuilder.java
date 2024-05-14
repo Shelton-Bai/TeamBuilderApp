@@ -4,15 +4,14 @@ import static com.example.teambuilderapp.SearchHandling.pokemonSearch;
 import static com.example.teambuilderapp.SearchHandling.itemSearch;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,17 +21,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ActivityPokemonBuilder extends AppCompatActivity {
+public class ActivityPokemonBuilder extends AppCompatActivity implements SearchResultViewInterface{
 	private String TAG = "oogabooga";
-	Pokemon current;
+	enum listType {
+		POKEMON,
+		ITEM,
+		ABILITY
+	}
+	
+	Pokemon currentPokemon;
 	String format;
-	LinearLayout searchResults;
+	listType currList;
+	RecyclerView searchResults;
 	EditText pokemonSearch;
 	EditText itemSearch;
 	EditText abilitySearch;
+	Spinner sortDropdown;
+	CheckBox reverseSort;
 	
 	ActivityResultLauncher<Intent> pokemonEditLauncher = registerForActivityResult(
 			//launcher for editing moves, stats and details, just sets the pokemon to the new pokemon made in the views
@@ -40,12 +50,11 @@ public class ActivityPokemonBuilder extends AppCompatActivity {
 			result -> {
 				if (result.getResultCode() == Activity.RESULT_OK){
 					Intent data = result.getData();
-					current = (Pokemon) data.getSerializableExtra("pokemon");
-					Log.d(TAG, current.toString());
+					currentPokemon = (Pokemon) data.getSerializableExtra("pokemon");
+					Log.d(TAG, currentPokemon.toString());
 				}
 			}
 	);
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +67,17 @@ public class ActivityPokemonBuilder extends AppCompatActivity {
 			return insets;
 		});
 		
-		searchResults = findViewById(R.id.pokemonSearchResultTarget);
+		searchResults = findViewById(R.id.searchResults);
 		pokemonSearch = findViewById(R.id.pokemonSearchBar);
 		itemSearch = findViewById(R.id.itemSearchBar);
 		abilitySearch = findViewById(R.id.abilitySearchBar);
+		sortDropdown = findViewById(R.id.sortDropdown);
+		reverseSort = findViewById(R.id.reverseSort);
+		
+		//set items in drop down
+		String[] sortMethods = new String[]{"alpha", "bst", "stats"};
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, sortMethods);
+		sortDropdown.setAdapter(adapter);
 		
 		//set focus listeners for search fields
 		pokemonSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -81,41 +97,29 @@ public class ActivityPokemonBuilder extends AppCompatActivity {
 			}
 		});
 		
+		currList = listType.POKEMON;
+		ArrayList<PokemonEntity> mons = pokemonSearch("");
+		PokemonViewAdapter pokemonAdapter = new PokemonViewAdapter(this, mons, this);
+		searchResults.setAdapter(pokemonAdapter);
+		searchResults.setLayoutManager(new LinearLayoutManager(this));
 		
-		
-//		ArrayList<String> pokemon = pokemonSearch("");
-//		for(String mon : pokemon){
-//
-//			TextView pText = new TextView(getApplicationContext());
-//			pText.setText(mon);
-//			pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-//			pText.setPadding(60, 20, 5, 5);
-//
-//
-//
-//			searchResults.addView(pText);
-//
-//		}
 	}
 	
+	
 	public void onPokemonSearchClick(View v){
-		searchResults.removeAllViews();
-		ArrayList<String> mons = pokemonSearch("");
-		for(String mon : mons){
-			TextView itemText = formatSearchResult(mon, getApplicationContext());
-			
-			searchResults.addView(itemText);
-			
-		}
+		ArrayList<PokemonEntity> mons = pokemonSearch("");
+		PokemonViewAdapter adapter = new PokemonViewAdapter(this, mons, this);
+		searchResults.setAdapter(adapter);
+		searchResults.setLayoutManager(new LinearLayoutManager(this));
 	}
 	
 	public void onItemSearchClick(View v){
-		searchResults.removeAllViews();
+//		searchResults.removeAllViews();
 		ArrayList<String> items = itemSearch("");
 		for(String item : items){
-			TextView itemText = formatSearchResult(item, getApplicationContext());
+//			TextView itemText = formatSearchResult(item, getApplicationContext());
 			
-			searchResults.addView(itemText);
+//			searchResults.addView(itemText);
 			
 		}
 	}
@@ -125,54 +129,76 @@ public class ActivityPokemonBuilder extends AppCompatActivity {
 	}
 	
 	public void onMovesButtonClick(View v){
-		if(current == null){
+		if(currentPokemon == null){
 			Toast.makeText(this, "Select A Pokemon First!", Toast.LENGTH_LONG).show();
 		} else {
 			Intent editMoves = new Intent(this, ActivityMoves.class);
-			editMoves.putExtra("pokemon", current);
+			editMoves.putExtra("pokemon", currentPokemon);
 			pokemonEditLauncher.launch(editMoves);
 		}
 	}
 	public void onStatsButtonClick(View v){
-		if(current == null){
+		if(currentPokemon == null){
 			Toast.makeText(this, "Select A Pokemon First!", Toast.LENGTH_LONG).show();
 		} else {
 			Intent editStats = new Intent(this, ActivityStats.class);
-			editStats.putExtra("pokemon", current);
+			editStats.putExtra("pokemon", currentPokemon);
 			pokemonEditLauncher.launch(editStats);
 		}
 	}
 	public void onDetailsButtonClick(View v){
-		if(current == null){
+		if(currentPokemon == null){
 			Toast.makeText(this, "Select A Pokemon First!", Toast.LENGTH_LONG).show();
 		} else {
 			Intent editDetails = new Intent(this, ActivityDetails.class);
-			editDetails.putExtra("pokemon", current);
+			editDetails.putExtra("pokemon", currentPokemon);
 			pokemonEditLauncher.launch(editDetails);
 		}
 	}
 	public void onFilterButtonClick(View v){
-		if(current != null){
-			Log.d(TAG, current.toString());
+		if(currentPokemon != null){
+			Log.d(TAG, currentPokemon.toString());
 		}
 	}
 	
-	public TextView formatSearchResult(String name, Context con){
-		TextView pText = new TextView(getApplicationContext());
-		pText.setText(name);
-		pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-		pText.setPadding(60, 20, 5, 5);
-		
-		pText.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				current = new Pokemon(name);
-				Log.d(TAG, current.toString());
-			}
-		});
-		
-		return pText;
+	@Override
+	public void onResultClick(int position) {
+		Log.d(TAG, "search result: item clicked");
+		switch (currList){
+			case POKEMON:
+				PokemonViewAdapter adapter = (PokemonViewAdapter) searchResults.getAdapter();
+				if (adapter != null) {
+					PokemonEntity mon = adapter.mons.get(position);
+					currentPokemon = new Pokemon(mon.name);
+					currentPokemon.ability = mon.ability0;
+					Log.d(TAG, currentPokemon.toString());
+				}
+				break;
+			case ITEM:
+				Log.d(TAG, "onItemClick: item clicked");
+				break;
+			case ABILITY:
+				break;
+		}
 	}
+
+
+//	public TextView formatSearchResult(String name, Context con){
+//		TextView pText = new TextView(getApplicationContext());
+//		pText.setText(name);
+//		pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+//		pText.setPadding(60, 20, 5, 5);
+//
+//		pText.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				current = new Pokemon(name);
+//				Log.d(TAG, current.toString());
+//			}
+//		});
+//
+//		return pText;
+//	}
 	
 	
 }

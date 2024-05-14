@@ -51,8 +51,8 @@ public class Pokemon implements Serializable {
 		natureMap.put("Timid", new int[]{5, 1});      // Speed +, Attack -
 	}
 	
-	public Pokemon (String name){
-		this.name = name;
+	public Pokemon (String species){
+		this.species = species;
 		//set defaults (all string fields not set here are null by default)
 		this.ability = "Overgrow";
 		this.level = 100;

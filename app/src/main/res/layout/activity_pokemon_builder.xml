@@ -15,6 +15,7 @@
         android:layout_marginTop="80dp"
         android:ems="10"
         android:hint="Pokemon"
+        android:imeOptions="actionDone"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +27,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Item"
+        android:imeOptions="actionDone"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/pokemonSearchBar"
         app:layout_constraintTop_toBottomOf="@+id/pokemonSearchBar" />
@@ -37,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Ability"
+        android:imeOptions="actionDone"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/itemSearchBar"
         app:layout_constraintTop_toBottomOf="@+id/itemSearchBar" />
@@ -71,33 +74,13 @@
         app:layout_constraintStart_toStartOf="@+id/statsButton"
         app:layout_constraintTop_toBottomOf="@+id/statsButton" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResults"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="SearchResults"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterStringBar">
-
-        <LinearLayout
-            android:id="@+id/pokemonSearchResultTarget"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
-    </ScrollView>
-
-    <EditText
-        android:id="@+id/filterStringBar"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Filter String"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/abilitySearchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/sortDropdown" />
 
     <Button
         android:id="@+id/backToTeamBuilder"
@@ -109,6 +92,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Spinner
+        android:id="@+id/sortDropdown"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="@+id/abilitySearchBar"
+        app:layout_constraintStart_toStartOf="@+id/abilitySearchBar"
+        app:layout_constraintTop_toBottomOf="@+id/abilitySearchBar" />
+
     <Button
         android:id="@+id/sendFilters"
         android:layout_width="wrap_content"
@@ -116,5 +110,14 @@
         android:onClick="onFilterButtonClick"
         android:text="Filter"
         app:layout_constraintStart_toStartOf="@+id/detailsButton"
-        app:layout_constraintTop_toTopOf="@+id/filterStringBar" />
+        app:layout_constraintTop_toTopOf="@+id/backToTeamBuilder" />
+
+    <CheckBox
+        android:id="@+id/reverseSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Reverse Sort"
+        app:layout_constraintStart_toStartOf="@+id/detailsButton"
+        app:layout_constraintTop_toBottomOf="@+id/detailsButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

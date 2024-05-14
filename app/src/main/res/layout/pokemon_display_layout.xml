@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/pokemonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Necrozma-Dawn-Wings"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/abilityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Abilities:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pokemonName" />
+
+            <TextView
+                android:id="@+id/abilityValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Defiant/Supreme Overlord/Pressure"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/abilityLabel" />
+
+            <ImageView
+                android:id="@+id/type1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintEnd_toStartOf="@+id/type2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/fire"
+                app:tint="#FF0000" />
+
+            <ImageView
+                android:id="@+id/type2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintEnd_toStartOf="@+id/hpLabel"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/fire"
+                app:tint="#FF0000" />
+
+            <TextView
+                android:id="@+id/hpLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="HP"
+                app:layout_constraintEnd_toStartOf="@+id/atkLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/atkLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="Atk"
+                app:layout_constraintEnd_toStartOf="@+id/defLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/defLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="Def"
+                app:layout_constraintEnd_toStartOf="@+id/spaLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/spaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="SpA"
+                app:layout_constraintEnd_toStartOf="@+id/spdLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/spdLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="SpD"
+                app:layout_constraintEnd_toStartOf="@+id/speLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/speLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="Spe"
+                app:layout_constraintEnd_toStartOf="@+id/bstLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bstLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="BST"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hpValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HP"
+                app:layout_constraintEnd_toEndOf="@+id/hpLabel"
+                app:layout_constraintTop_toBottomOf="@+id/hpLabel" />
+
+            <TextView
+                android:id="@+id/atkValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Atk"
+                app:layout_constraintEnd_toEndOf="@+id/atkLabel"
+                app:layout_constraintTop_toBottomOf="@+id/atkLabel" />
+
+            <TextView
+                android:id="@+id/defValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Def"
+                app:layout_constraintEnd_toEndOf="@+id/defLabel"
+                app:layout_constraintTop_toBottomOf="@+id/defLabel" />
+
+            <TextView
+                android:id="@+id/spaValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SpA"
+                app:layout_constraintEnd_toEndOf="@+id/spaLabel"
+                app:layout_constraintTop_toBottomOf="@+id/spaLabel" />
+
+            <TextView
+                android:id="@+id/spdValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SpD"
+                app:layout_constraintEnd_toEndOf="@+id/spdLabel"
+                app:layout_constraintTop_toBottomOf="@+id/spdLabel" />
+
+            <TextView
+                android:id="@+id/speValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spe"
+                app:layout_constraintEnd_toEndOf="@+id/speLabel"
+                app:layout_constraintTop_toBottomOf="@+id/speLabel" />
+
+            <TextView
+                android:id="@+id/bstValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="BST"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bstLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
