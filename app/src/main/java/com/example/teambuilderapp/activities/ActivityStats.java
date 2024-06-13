@@ -1,4 +1,4 @@
-package com.example.teambuilderapp;
+package com.example.teambuilderapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.teambuilderapp.Pokemon;
+import com.example.teambuilderapp.R;
 
 public class ActivityStats extends AppCompatActivity {
 	private String TAG = "oogabooga2";

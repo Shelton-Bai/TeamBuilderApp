@@ -1,7 +1,7 @@
 package com.example.teambuilderapp;
 
 
-import android.util.Log;
+import com.example.teambuilderapp.database.PokemonEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

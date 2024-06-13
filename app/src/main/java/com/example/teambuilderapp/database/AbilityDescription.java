@@ -1,10 +1,10 @@
-package com.example.teambuilderapp;
+package com.example.teambuilderapp.database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class AbilityDescriptions {
+public class AbilityDescription {
 	
 	@PrimaryKey
 	public String ability;

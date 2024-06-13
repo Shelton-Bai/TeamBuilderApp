@@ -1,4 +1,4 @@
-package com.example.teambuilderapp;
+package com.example.teambuilderapp.activities;
 
 import static com.example.teambuilderapp.SearchHandling.pokemonSearch;
 import static com.example.teambuilderapp.SearchHandling.itemSearch;
@@ -24,9 +24,15 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teambuilderapp.Pokemon;
+import com.example.teambuilderapp.database.PokemonEntity;
+import com.example.teambuilderapp.PokemonViewAdapter;
+import com.example.teambuilderapp.R;
+import com.example.teambuilderapp.SearchResultViewInterface;
+
 import java.util.ArrayList;
 
-public class ActivityPokemonBuilder extends AppCompatActivity implements SearchResultViewInterface{
+public class ActivityPokemonBuilder extends AppCompatActivity implements SearchResultViewInterface {
 	private String TAG = "oogabooga";
 	enum listType {
 		POKEMON,
@@ -107,6 +113,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 	
 	
 	public void onPokemonSearchClick(View v){
+		currList = listType.POKEMON;
 		ArrayList<PokemonEntity> mons = pokemonSearch("");
 		PokemonViewAdapter adapter = new PokemonViewAdapter(this, mons, this);
 		searchResults.setAdapter(adapter);
@@ -114,14 +121,9 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 	}
 	
 	public void onItemSearchClick(View v){
-//		searchResults.removeAllViews();
+		
 		ArrayList<String> items = itemSearch("");
-		for(String item : items){
-//			TextView itemText = formatSearchResult(item, getApplicationContext());
-			
-//			searchResults.addView(itemText);
-			
-		}
+		
 	}
 	
 	public void onAbilitySearchClick(View v){
@@ -172,7 +174,9 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 					currentPokemon = new Pokemon(mon.name);
 					currentPokemon.ability = mon.ability0;
 					Log.d(TAG, currentPokemon.toString());
+					pokemonSearch.setText(mon.name);
 				}
+				
 				break;
 			case ITEM:
 				Log.d(TAG, "onItemClick: item clicked");
@@ -181,24 +185,6 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 				break;
 		}
 	}
-
-
-//	public TextView formatSearchResult(String name, Context con){
-//		TextView pText = new TextView(getApplicationContext());
-//		pText.setText(name);
-//		pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-//		pText.setPadding(60, 20, 5, 5);
-//
-//		pText.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				current = new Pokemon(name);
-//				Log.d(TAG, current.toString());
-//			}
-//		});
-//
-//		return pText;
-//	}
 	
 	
 }

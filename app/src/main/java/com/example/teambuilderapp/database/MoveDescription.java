@@ -1,10 +1,10 @@
-package com.example.teambuilderapp;
+package com.example.teambuilderapp.database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class MoveDescriptions {
+public class MoveDescription {
 	
 	@PrimaryKey
 	public String move; //move name

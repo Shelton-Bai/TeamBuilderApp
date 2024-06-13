@@ -1,6 +1,8 @@
 package com.example.teambuilderapp;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.teambuilderapp.database.PokemonEntity;
 
 import java.util.ArrayList;
 
@@ -53,6 +57,36 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 		holder.speValue.setText(mon.spe + "");
 		int bst = mon.hp + mon.atk + mon.def + mon.spa + mon.spd + mon.spe;
 		holder.bstValue.setText(bst + "");
+		
+		configTypeImage(holder.type1, mon.type1);
+		configTypeImage(holder.type2, mon.type2);
+		
+	}
+	
+	//not done update as needed
+	public void configTypeImage(ImageView image, String type){
+		if(type == null){
+			image.setVisibility(View.INVISIBLE);
+		} else {
+			switch (type.toLowerCase()){
+				case "fire":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.fire);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+					break;
+				case "poison":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.poison);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#9e009e")));
+					break;
+				case "grass":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.grass);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#009900")));
+					break;
+					
+			}
+		}
 	}
 	
 	@Override

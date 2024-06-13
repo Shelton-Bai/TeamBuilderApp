@@ -1,4 +1,4 @@
-package com.example.teambuilderapp;
+package com.example.teambuilderapp.activities;
 
 import static com.example.teambuilderapp.SearchHandling.pokemonSearch;
 
@@ -19,6 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.teambuilderapp.Pokemon;
+import com.example.teambuilderapp.PokemonTeam;
+import com.example.teambuilderapp.R;
 
 import java.util.ArrayList;
 
