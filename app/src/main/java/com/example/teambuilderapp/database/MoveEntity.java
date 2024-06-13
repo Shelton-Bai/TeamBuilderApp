@@ -3,11 +3,13 @@ package com.example.teambuilderapp.database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "moves")
 public class MoveEntity {
 	
 	@PrimaryKey
 	public int num; //move id number
+	
+	public String name; //move name
 	
 	public int accuracy; //accuracy, or -1 if can't miss
 	

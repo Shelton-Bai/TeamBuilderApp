@@ -1,15 +1,20 @@
 package com.example.teambuilderapp.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "item_descriptions")
 public class ItemDescription {
 	
-	@PrimaryKey
-	public String item;
+	@PrimaryKey @NonNull
+	public String item; //name, foreign key for itemEntity
 	
 	public String desc; //description
 	
 	public String shortDesc; //shortened description
+	
+	public ItemDescription(String item) {
+		this.item = item;
+	}
 }

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 public class FormatEntity {
 	
 	@PrimaryKey
-	public String pokemon;
+	public String pokemon; //name,
 	
 	public String isNonstandard; //null if standard, else usually past
 	

@@ -3,6 +3,8 @@ package com.example.teambuilderapp;
 
 import android.content.Context;
 
+import com.example.teambuilderapp.database.PokemonDao;
+import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class SearchHandling {
 	public SearchHandling(){
 	
 	}
+	
+	
 	
 //	public static ArrayList<String> pokemonSearch(String s){
 //		s = s.toLowerCase();
@@ -38,7 +42,13 @@ public class SearchHandling {
 	public static ArrayList<PokemonEntity> pokemonSearch(String s, Context context){
 		s = s.toLowerCase();
 		
-		ArrayList<PokemonEntity> pokemon = getSamplePokemon(context);
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		PokemonDao dao = db.pokemonDao();
+		
+//		ArrayList<PokemonEntity> pokemon = getSamplePokemon(context);
+		
+		ArrayList<PokemonEntity> pokemon = (ArrayList<PokemonEntity>) dao.getAllPokemon();
+		
 		ArrayList<PokemonEntity> results = new ArrayList<>();
 		
 		if(s.equals("")){

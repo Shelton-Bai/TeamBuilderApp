@@ -3,19 +3,16 @@ package com.example.teambuilderapp;
 import android.util.Log;
 import android.content.Context;
 
+import com.example.teambuilderapp.database.PokemonDao;
+import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import android.util.JsonReader;
 
 public class DBPrePop {
@@ -174,6 +171,21 @@ public class DBPrePop {
 			throw new RuntimeException(e);
 		}
 		return pokemonList;
+	}
+	
+	public static void prePopPokemon(Context context){
+		
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		PokemonDao dao = db.pokemonDao();
+		
+		List<PokemonEntity> list = parsePokedex(context);
+		PokemonEntity[] pokemonArray = list.toArray(new PokemonEntity[list.size()]);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insertPokemon(pokemonArray);
+			}
+		}).start();
 	}
 
 }

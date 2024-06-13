@@ -24,7 +24,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teambuilderapp.DBPrePop;
 import com.example.teambuilderapp.PokemonSet;
+import com.example.teambuilderapp.database.PokemonDao;
+import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
 import com.example.teambuilderapp.PokemonViewAdapter;
 import com.example.teambuilderapp.R;
@@ -50,6 +53,10 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 	Spinner sortDropdown;
 	CheckBox reverseSort;
 	
+	//temp
+	PokemonDatabase db;
+	PokemonDao dao;
+	
 	ActivityResultLauncher<Intent> pokemonEditLauncher = registerForActivityResult(
 			//launcher for editing moves, stats and details, just sets the pokemon to the new pokemon made in the views
 			new ActivityResultContracts.StartActivityForResult(),
@@ -72,6 +79,11 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 			return insets;
 		});
+		
+		//temp
+		db = PokemonDatabase.getDatabase(getApplicationContext());
+		dao = db.pokemonDao();
+		DBPrePop.prePopPokemon(getApplicationContext());
 		
 		searchResults = findViewById(R.id.searchResults);
 		pokemonSearch = findViewById(R.id.pokemonSearchBar);
@@ -158,8 +170,29 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 		}
 	}
 	public void onFilterButtonClick(View v){
+		
+		PokemonEntity mon1 = new PokemonEntity("shabingus");
+		mon1.type1 = "Fire";
+		mon1.type2 = "Grass";
+		mon1.hp = 69;
+		mon1.atk = 69;
+		mon1.def = 69;
+		mon1.spa = 69;
+		mon1.spd = 69;
+		mon1.spe = 69;
+		mon1.ability0 = "fuck u";
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insertPokemon(mon1);
+				Log.d(TAG, "new mon added");
+			}
+		}).start();
+		
 		if(currentPokemon != null){
 			Log.d(TAG, currentPokemon.toString());
+			
 		}
 	}
 	
