@@ -1,18 +1,14 @@
 package com.example.teambuilderapp.activities;
 
-import static com.example.teambuilderapp.SearchHandling.pokemonSearch;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,11 +16,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.teambuilderapp.Pokemon;
+import com.example.teambuilderapp.PokemonSet;
 import com.example.teambuilderapp.PokemonTeam;
 import com.example.teambuilderapp.R;
-
-import java.util.ArrayList;
 
 
 public class ActivityTeambuilder extends AppCompatActivity {
@@ -122,7 +116,7 @@ public class ActivityTeambuilder extends AppCompatActivity {
 	
 	public void addPokemon(String name, PokemonTeam team){
 		Log.d(TAG, " Clicked on: " + name);
-		team.addPokemon(new Pokemon(name));
+		team.addPokemon(new PokemonSet(name));
 	}
 	
 	

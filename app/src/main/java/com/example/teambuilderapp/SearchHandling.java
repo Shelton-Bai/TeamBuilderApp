@@ -1,6 +1,8 @@
 package com.example.teambuilderapp;
 
 
+import android.content.Context;
+
 import com.example.teambuilderapp.database.PokemonEntity;
 
 import java.util.ArrayList;
@@ -33,10 +35,10 @@ public class SearchHandling {
 //
 //		return results;
 //	}
-	public static ArrayList<PokemonEntity> pokemonSearch(String s){
+	public static ArrayList<PokemonEntity> pokemonSearch(String s, Context context){
 		s = s.toLowerCase();
 		
-		ArrayList<PokemonEntity> pokemon = getSamplePokemon();
+		ArrayList<PokemonEntity> pokemon = getSamplePokemon(context);
 		ArrayList<PokemonEntity> results = new ArrayList<>();
 		
 		if(s.equals("")){
@@ -53,10 +55,12 @@ public class SearchHandling {
 		return results;
 	}
 	
-	public static ArrayList<PokemonEntity> getSamplePokemon(){
+	public static ArrayList<PokemonEntity> getSamplePokemon(Context context){
 		ArrayList<PokemonEntity> results = new ArrayList<>();
 		
-		PokemonEntity p = new PokemonEntity("Bulbasaur", "Grass", "Poison");
+		PokemonEntity p = new PokemonEntity("Bulbasaur");
+		p.type1 = "Grass";
+		p.type2 = "Poison";
 		p.ability0 = "Overgrow";
 		p.abilityh = "Chlorophyll";
 		p.hp = 45;
@@ -68,7 +72,9 @@ public class SearchHandling {
 		
 		results.add(p);
 		
-		p = new PokemonEntity("Charmander", "Fire", null);
+		p = new PokemonEntity("Charmander");
+		p.type1 = "Fire";
+		p.type2 = null;
 		p.ability0 = "Blaze";
 		p.abilityh = "Solar Power";
 		p.hp = 39;
@@ -80,7 +86,9 @@ public class SearchHandling {
 		
 		results.add(p);
 		
-		return results;
+		return (ArrayList<PokemonEntity>)DBPrePop.parsePokedex(context);
+		
+//		return results;
 	}
 	
 	public static ArrayList<String> itemSearch(String s){

@@ -24,7 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.teambuilderapp.Pokemon;
+import com.example.teambuilderapp.PokemonSet;
 import com.example.teambuilderapp.database.PokemonEntity;
 import com.example.teambuilderapp.PokemonViewAdapter;
 import com.example.teambuilderapp.R;
@@ -40,7 +40,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 		ABILITY
 	}
 	
-	Pokemon currentPokemon;
+	PokemonSet currentPokemon;
 	String format;
 	listType currList;
 	RecyclerView searchResults;
@@ -56,7 +56,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 			result -> {
 				if (result.getResultCode() == Activity.RESULT_OK){
 					Intent data = result.getData();
-					currentPokemon = (Pokemon) data.getSerializableExtra("pokemon");
+					currentPokemon = (PokemonSet) data.getSerializableExtra("pokemon");
 					Log.d(TAG, currentPokemon.toString());
 				}
 			}
@@ -104,7 +104,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 		});
 		
 		currList = listType.POKEMON;
-		ArrayList<PokemonEntity> mons = pokemonSearch("");
+		ArrayList<PokemonEntity> mons = pokemonSearch("", getApplicationContext());
 		PokemonViewAdapter pokemonAdapter = new PokemonViewAdapter(this, mons, this);
 		searchResults.setAdapter(pokemonAdapter);
 		searchResults.setLayoutManager(new LinearLayoutManager(this));
@@ -114,7 +114,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 	
 	public void onPokemonSearchClick(View v){
 		currList = listType.POKEMON;
-		ArrayList<PokemonEntity> mons = pokemonSearch("");
+		ArrayList<PokemonEntity> mons = pokemonSearch("", getApplicationContext());
 		PokemonViewAdapter adapter = new PokemonViewAdapter(this, mons, this);
 		searchResults.setAdapter(adapter);
 		searchResults.setLayoutManager(new LinearLayoutManager(this));
@@ -171,7 +171,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 				PokemonViewAdapter adapter = (PokemonViewAdapter) searchResults.getAdapter();
 				if (adapter != null) {
 					PokemonEntity mon = adapter.mons.get(position);
-					currentPokemon = new Pokemon(mon.name);
+					currentPokemon = new PokemonSet(mon.name);
 					currentPokemon.ability = mon.ability0;
 					Log.d(TAG, currentPokemon.toString());
 					pokemonSearch.setText(mon.name);

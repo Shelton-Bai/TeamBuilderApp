@@ -37,16 +37,14 @@ public class PokemonEntity {
 	public int spe; //speed stat
 	//get bst by totaling up these stats with SUM function
 	
-	public int weight; //weight in kg (for moves like grass knot and heat crash)
+	public double weight; //weight in kg (for moves like grass knot and heat crash)
 	
 	public String forme; //for things like bond greninja, or wormadam formes, etc.
 	
 	public String tag; //whether a pokemon is legendary, sublegend, mythical, or paradox, etc. (can be null)
 	
-	public PokemonEntity(@NonNull String name, String type1, String type2){
+	public PokemonEntity(@NonNull String name){
 		this.name = name;
-		this.type1 = type1;
-		this.type2 = type2;
 	}
 	
 }

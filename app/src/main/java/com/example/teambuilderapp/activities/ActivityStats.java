@@ -20,13 +20,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.teambuilderapp.Pokemon;
+import com.example.teambuilderapp.PokemonSet;
 import com.example.teambuilderapp.R;
 
 public class ActivityStats extends AppCompatActivity {
 	private String TAG = "oogabooga2";
 	Intent intent;
-	Pokemon current;
+	PokemonSet current;
 	int currstat;
 	int usedEVs;
 	int plusStat;
@@ -63,7 +63,7 @@ public class ActivityStats extends AppCompatActivity {
 		
 		intent = getIntent();
 		
-		current = (Pokemon) intent.getSerializableExtra("pokemon");
+		current = (PokemonSet) intent.getSerializableExtra("pokemon");
 		
 		if(current == null){
 			finish();
@@ -84,7 +84,7 @@ public class ActivityStats extends AppCompatActivity {
 		for(int stat : current.evs){
 			usedEVs += stat;
 		}
-		int[] natureStats = Pokemon.getStatsFromNature(current.nature);
+		int[] natureStats = PokemonSet.getStatsFromNature(current.nature);
 		if(natureStats != null){
 			plusStat = natureStats[0];
 			minusStat = natureStats[1];
@@ -334,7 +334,7 @@ public class ActivityStats extends AppCompatActivity {
 	}
 	
 	public void backToPokemon(View v){
-		current.nature = Pokemon.getNatureFromStats(plusStat, minusStat);
+		current.nature = PokemonSet.getNatureFromStats(plusStat, minusStat);
 		intent.putExtra("pokemon", current);
 		setResult(Activity.RESULT_OK, intent);
 		finish();

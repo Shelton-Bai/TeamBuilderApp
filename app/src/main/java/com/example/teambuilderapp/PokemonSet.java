@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Pokemon implements Serializable {
+public class PokemonSet implements Serializable {
 	//use serializable interface, might be slower than parcelable, so might switch later
 	public String name;
 	public String species;
@@ -51,7 +51,7 @@ public class Pokemon implements Serializable {
 		natureMap.put("Timid", new int[]{5, 1});      // Speed +, Attack -
 	}
 	
-	public Pokemon (String species){
+	public PokemonSet(String species){
 		this.species = species;
 		//set defaults (all string fields not set here are null by default)
 		this.ability = "Overgrow";
