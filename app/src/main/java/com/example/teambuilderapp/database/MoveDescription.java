@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "move_descriptions")
 public class MoveDescription {
 	
 	@PrimaryKey @NonNull
@@ -15,7 +15,7 @@ public class MoveDescription {
 	
 	public String shortDesc; //shortened description, use this in move list
 	
-	public MoveDescription(String move){
+	public MoveDescription(@NonNull String move){
 		this.move = move;
 	}
 }

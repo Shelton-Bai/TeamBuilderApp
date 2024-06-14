@@ -30,7 +30,7 @@ public class ActivityMain extends AppCompatActivity {
 			return insets;
 		});
 		
-		DBPrePop.testParse(getApplicationContext());
+		
 		
 	}
 }

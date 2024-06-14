@@ -3,6 +3,9 @@ package com.example.teambuilderapp;
 import android.util.Log;
 import android.content.Context;
 
+import com.example.teambuilderapp.database.AbilityDao;
+import com.example.teambuilderapp.database.AbilityEntity;
+import com.example.teambuilderapp.database.ItemEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
@@ -10,40 +13,13 @@ import com.example.teambuilderapp.database.PokemonEntity;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.util.JsonReader;
 
 public class DBPrePop {
-	
-	public static void testParse(Context context){
-		try{
-			InputStream is = context.getAssets().open("pokedex.json");
-			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
-			
-			reader.beginObject();
-			while(reader.hasNext()){
-				String pokemonName = reader.nextName();
-				Log.d("PokemonObject", pokemonName);
-				
-				reader.beginObject();
-				while(reader.hasNext()){
-					String fieldName = reader.nextName();
-					Log.d(pokemonName + " field:", fieldName);
-					reader.skipValue();
-				}
-				reader.endObject();
-				
-			}
-			reader.endObject();
-			reader.close();
-			is.close();
-			
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
 	public static List<PokemonEntity> parsePokedex(Context context){
 		List<PokemonEntity> pokemonList = new ArrayList<>();
@@ -186,6 +162,95 @@ public class DBPrePop {
 				dao.insertPokemon(pokemonArray);
 			}
 		}).start();
+	}
+	
+	public static List<AbilityEntity> parseAbilities(Context context){
+		List<AbilityEntity> abilities = new ArrayList<>();
+		
+		try{
+			InputStream is = context.getAssets().open("abilities.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while(reader.hasNext()){
+				String ability = reader.nextName();
+				
+				AbilityEntity a = new AbilityEntity(ability);
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					String fieldName = reader.nextName();
+					switch(fieldName){
+						case "shortDesc":
+							a.shortDesc = reader.nextString();
+							break;
+						
+						case "desc":
+							a.desc = reader.nextString();
+							break;
+							
+						case "name":
+							a.ability = reader.nextString();
+							break;
+						
+						default:
+							reader.skipValue();
+					}
+				}
+				abilities.add(a);
+				reader.endObject();
+				
+			}
+			reader.endObject();
+			reader.close();
+			is.close();
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return abilities;
+	}
+	
+	public static void prePopAbilities(Context context){
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		AbilityDao dao = db.abilityDao();
+		
+		List<AbilityEntity> list = parseAbilities(context);
+		AbilityEntity[] abilityArray = list.toArray(new AbilityEntity[list.size()]);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insert(abilityArray);
+			}
+		}).start();
+	}
+	
+	public static List<ItemEntity> parseItems(Context context){
+		List<ItemEntity> items = new ArrayList<>();
+		
+		try{
+			InputStream is = context.getAssets().open("abilities.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while(reader.hasNext()){
+				String itemName = reader.nextName();
+				
+				ItemEntity item = new ItemEntity(itemName);
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					
+				}
+				
+			}
+			
+		} catch (IOException e){
+		
+		}
+		
+		return items;
 	}
 
 }

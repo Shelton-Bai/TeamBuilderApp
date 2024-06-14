@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teambuilderapp.DBPrePop;
 import com.example.teambuilderapp.PokemonSet;
 import com.example.teambuilderapp.database.PokemonDao;
+import com.example.teambuilderapp.database.AbilityDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
 import com.example.teambuilderapp.PokemonViewAdapter;
@@ -55,7 +56,8 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 	
 	//temp
 	PokemonDatabase db;
-	PokemonDao dao;
+	PokemonDao pdao;
+	AbilityDao adao;
 	
 	ActivityResultLauncher<Intent> pokemonEditLauncher = registerForActivityResult(
 			//launcher for editing moves, stats and details, just sets the pokemon to the new pokemon made in the views
@@ -82,8 +84,10 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 		
 		//temp
 		db = PokemonDatabase.getDatabase(getApplicationContext());
-		dao = db.pokemonDao();
+		pdao = db.pokemonDao();
+		adao = db.abilityDao();
 		DBPrePop.prePopPokemon(getApplicationContext());
+		DBPrePop.prePopAbilities(getApplicationContext());
 		
 		searchResults = findViewById(R.id.searchResults);
 		pokemonSearch = findViewById(R.id.pokemonSearchBar);
@@ -171,28 +175,9 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 	}
 	public void onFilterButtonClick(View v){
 		
-		PokemonEntity mon1 = new PokemonEntity("shabingus");
-		mon1.type1 = "Fire";
-		mon1.type2 = "Grass";
-		mon1.hp = 69;
-		mon1.atk = 69;
-		mon1.def = 69;
-		mon1.spa = 69;
-		mon1.spd = 69;
-		mon1.spe = 69;
-		mon1.ability0 = "fuck u";
-		
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				dao.insertPokemon(mon1);
-				Log.d(TAG, "new mon added");
-			}
-		}).start();
-		
 		if(currentPokemon != null){
 			Log.d(TAG, currentPokemon.toString());
-			
+//			Log.d(currentPokemon.ability, adao.getAbility(currentPokemon.ability).get(0).shortDesc);
 		}
 	}
 	
