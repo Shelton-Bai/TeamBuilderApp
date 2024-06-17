@@ -10,11 +10,13 @@ public class ItemDescription {
 	@PrimaryKey @NonNull
 	public String item; //name, foreign key for itemEntity
 	
+	public String name;
+	
 	public String desc; //description
 	
 	public String shortDesc; //shortened description
 	
-	public ItemDescription(String item) {
+	public ItemDescription(@NonNull String item) {
 		this.item = item;
 	}
 }

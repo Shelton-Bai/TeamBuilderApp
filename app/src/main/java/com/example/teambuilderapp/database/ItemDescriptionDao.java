@@ -21,7 +21,7 @@ public interface ItemDescriptionDao {
 	@Update
 	public void update(ItemDescription... itemDesc);
 	
-	@Query("SELECT * FROM item_descriptions WHERE item = :itemName")
-	public List<ItemDescription> getItemDescription(String itemName);
+	@Query("SELECT * FROM item_descriptions WHERE item = :itemName LIMIT 1")
+	public ItemDescription getItemDescription(String itemName);
 	
 }

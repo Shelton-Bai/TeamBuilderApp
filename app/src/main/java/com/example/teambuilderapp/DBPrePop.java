@@ -5,6 +5,9 @@ import android.content.Context;
 
 import com.example.teambuilderapp.database.AbilityDao;
 import com.example.teambuilderapp.database.AbilityEntity;
+import com.example.teambuilderapp.database.ItemDao;
+import com.example.teambuilderapp.database.ItemDescription;
+import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
@@ -38,7 +41,6 @@ public class DBPrePop {
 				reader.beginObject();
 				while(reader.hasNext()){
 					String fieldName = reader.nextName();
-					Log.d(pokemonName + " field:", fieldName);
 					//process each field
 					switch (fieldName){
 						case "num":
@@ -148,7 +150,6 @@ public class DBPrePop {
 		}
 		return pokemonList;
 	}
-	
 	public static void prePopPokemon(Context context){
 		
 		PokemonDatabase db = PokemonDatabase.getDatabase(context);
@@ -160,10 +161,10 @@ public class DBPrePop {
 			@Override
 			public void run() {
 				dao.insertPokemon(pokemonArray);
+				Log.d("PrePop", "Populated Pokemon");
 			}
 		}).start();
 	}
-	
 	public static List<AbilityEntity> parseAbilities(Context context){
 		List<AbilityEntity> abilities = new ArrayList<>();
 		
@@ -211,7 +212,6 @@ public class DBPrePop {
 		
 		return abilities;
 	}
-	
 	public static void prePopAbilities(Context context){
 		PokemonDatabase db = PokemonDatabase.getDatabase(context);
 		AbilityDao dao = db.abilityDao();
@@ -222,35 +222,126 @@ public class DBPrePop {
 			@Override
 			public void run() {
 				dao.insert(abilityArray);
+				Log.d("PrePop", "Populated Abilities");
 			}
 		}).start();
 	}
-	
 	public static List<ItemEntity> parseItems(Context context){
 		List<ItemEntity> items = new ArrayList<>();
 		
 		try{
-			InputStream is = context.getAssets().open("abilities.json");
+			InputStream is = context.getAssets().open("items.json");
 			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
 			
 			reader.beginObject();
 			while(reader.hasNext()){
 				String itemName = reader.nextName();
-				
 				ItemEntity item = new ItemEntity(itemName);
 				
 				reader.beginObject();
 				while(reader.hasNext()){
-					
+					String fieldName = reader.nextName();
+//					Log.d(itemName, fieldName);
+					switch(fieldName){
+						case "name":
+							item.name = reader.nextString();
+							break;
+						case "isNonStandard":
+							item.isNonstandard = reader.nextString();
+							break;
+						case "itemUser":
+							String userArray = "[";
+							reader.beginArray();
+							while(reader.hasNext()){
+								userArray = userArray + String.format("\"%s\",", reader.nextString());
+							}
+							reader.endArray();
+							userArray = userArray.substring(0, userArray.length() - 1) + "]";
+							item.user = userArray;
+							break;
+						default:
+							reader.skipValue();
+					}
 				}
-				
+				items.add(item);
+				reader.endObject();
 			}
+			reader.endObject();
+			reader.close();
+			is.close();
 			
 		} catch (IOException e){
-		
+			throw new RuntimeException(e);
 		}
 		
 		return items;
+	}
+	public static void prePopItems(Context context){
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		ItemDao dao = db.itemDao();
+		
+		List<ItemEntity> list = parseItems(context);
+		ItemEntity[] itemArray = list.toArray(new ItemEntity[list.size()]);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insert(itemArray);
+				Log.d("PrePop", "Populated Items");
+			}
+		}).start();
+	}
+	public static List<ItemDescription> parseItemDescs(Context context){
+		List<ItemDescription> descriptions = new ArrayList<>();
+		
+		try {
+			InputStream is = context.getAssets().open("itemText.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String itemName = reader.nextName();
+				ItemDescription item = new ItemDescription(itemName);
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					String fieldName = reader.nextName();
+					switch (fieldName){
+						case "name":
+							item.item = reader.nextString();
+							break;
+						case "desc":
+							item.desc = reader.nextString();
+							break;
+						default:
+							reader.skipValue();
+					}
+				}
+				descriptions.add(item);
+				reader.endObject();
+			}
+			reader.endObject();
+			reader.close();
+			is.close();
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return descriptions;
+	}
+	public static void prePopItemDescriptions(Context context){
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		ItemDescriptionDao dao = db.itemDescriptionDao();
+		
+		List<ItemDescription> list = parseItemDescs(context);
+		ItemDescription[] array = list.toArray(new ItemDescription[list.size()]);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insert(array);
+				Log.d("PrePop", "Populated Item Descriptions");
+			}
+		}).start();
 	}
 
 }

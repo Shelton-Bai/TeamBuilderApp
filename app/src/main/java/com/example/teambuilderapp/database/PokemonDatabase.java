@@ -6,7 +6,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.Database;
 
-@Database(entities = {PokemonEntity.class, ItemEntity.class, ItemDescription.class, AbilityEntity.class}, version = 1)
+@Database(entities = {PokemonEntity.class, ItemEntity.class, ItemDescription.class, AbilityEntity.class}, version = 2)
 public abstract class PokemonDatabase extends RoomDatabase {
 	private static volatile PokemonDatabase instance;
 	

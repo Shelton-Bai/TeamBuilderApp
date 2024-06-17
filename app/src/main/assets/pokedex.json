@@ -561,6 +561,19 @@
     ],
     "changesFrom": "Blastoise"
   },
+  "farfetchd": {
+    "num": 83,
+    "name": "Farfetch\u2019d",
+    "types": ["Normal", "Flying"],
+    "baseStats": {"hp": 52, "atk": 90, "def": 55, "spa": 58, "spd": 62, "spe": 60},
+    "abilities": {"0": "Keen Eye", "1": "Inner Focus", "H": "Defiant"},
+    "heightm": 0.8,
+    "weightkg": 15,
+    "color": "Brown",
+    "eggGroups": ["Flying", "Field"],
+    "otherFormes": ["Farfetch\u2019d-Galar"],
+    "formeOrder": ["Farfetch\u2019d", "Farfetch\u2019d-Galar"]
+  },
   "caterpie": {
     "num": 10,
     "name": "Caterpie",
