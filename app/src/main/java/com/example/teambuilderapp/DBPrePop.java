@@ -10,6 +10,8 @@ import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
 import com.example.teambuilderapp.database.MoveDao;
+import com.example.teambuilderapp.database.MoveDescription;
+import com.example.teambuilderapp.database.MoveDescriptionDao;
 import com.example.teambuilderapp.database.MoveEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
@@ -421,6 +423,62 @@ public class DBPrePop {
 			public void run() {
 				dao.insert(array);
 				Log.d("PrePop", "Populated Moves");
+			}
+		}).start();
+	}
+	public static List<MoveDescription> parseMoveDescs(Context context){
+		List<MoveDescription> moves = new ArrayList<>();
+		
+		try {
+			InputStream is = context.getAssets().open("moveText.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String moveName = reader.nextName();
+				MoveDescription move = new MoveDescription(moveName);
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					String fieldName = reader.nextName();
+					switch (fieldName){
+						case "name":
+							move.name = reader.nextString();
+							break;
+						case "desc":
+							move.desc = reader.nextString();
+							break;
+						case "shortDesc":
+							move.shortDesc = reader.nextString();
+							break;
+						default:
+							reader.skipValue();
+					}
+				}
+				moves.add(move);
+				reader.endObject();
+			}
+			reader.endObject();
+			reader.close();
+			is.close();
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return moves;
+	}
+	public static void prePopMoveDescriptions(Context context){
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		MoveDescriptionDao dao = db.moveDescriptionDao();
+		
+		List<MoveDescription> list = parseMoveDescs(context);
+		MoveDescription[] array = list.toArray(new MoveDescription[list.size()]);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insert(array);
+				Log.d("PrePop", "Populated Move Descriptions");
 			}
 		}).start();
 	}

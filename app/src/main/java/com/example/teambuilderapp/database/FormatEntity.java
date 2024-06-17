@@ -3,7 +3,7 @@ package com.example.teambuilderapp.database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "formats")
 public class FormatEntity {
 	
 	@PrimaryKey

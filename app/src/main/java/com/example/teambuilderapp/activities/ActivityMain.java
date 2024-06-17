@@ -19,6 +19,8 @@ import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
 import com.example.teambuilderapp.database.MoveDao;
+import com.example.teambuilderapp.database.MoveDescription;
+import com.example.teambuilderapp.database.MoveDescriptionDao;
 import com.example.teambuilderapp.database.MoveEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
@@ -37,6 +39,7 @@ public class ActivityMain extends AppCompatActivity {
 	ItemDao idao;
 	ItemDescriptionDao iddao;
 	MoveDao mdao;
+	MoveDescriptionDao mddao;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,11 +57,13 @@ public class ActivityMain extends AppCompatActivity {
 		idao = db.itemDao();
 		iddao = db.itemDescriptionDao();
 		mdao = db.moveDao();
+		mddao = db.moveDescriptionDao();
 		DBPrePop.prePopPokemon(getApplicationContext());
 		DBPrePop.prePopAbilities(getApplicationContext());
 		DBPrePop.prePopItems(getApplicationContext());
 		DBPrePop.prePopItemDescriptions(getApplicationContext());
 		DBPrePop.prePopMoves(getApplicationContext());
+		DBPrePop.prePopMoveDescriptions(getApplicationContext());
 		
 	}
 	
@@ -66,7 +71,14 @@ public class ActivityMain extends AppCompatActivity {
 		ArrayList<MoveEntity> list = (ArrayList<MoveEntity>) mdao.getAllMoves();
 		Log.d(TAG, list.size() + "");
 		for(MoveEntity element : list){
-			Log.d(element.name, String.format("%s %s move", element.category, element.type));
+			MoveDescription m = mddao.getMoveDescription(element.move);
+			if(m != null){
+				if(m.shortDesc == null){
+					Log.d(TAG, m.name);
+				} else {
+					Log.d(element.name, m.shortDesc);
+				}
+			}
 		}
 	}
 }

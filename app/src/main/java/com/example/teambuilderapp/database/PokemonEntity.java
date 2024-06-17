@@ -43,6 +43,7 @@ public class PokemonEntity {
 	
 	public String tag; //whether a pokemon is legendary, sublegend, mythical, or paradox, etc. (can be null)
 	
+	public String isNonStandard;
 	public PokemonEntity(@NonNull String name){
 		this.name = name;
 	}

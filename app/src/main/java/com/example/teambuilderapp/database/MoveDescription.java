@@ -11,6 +11,8 @@ public class MoveDescription {
 	@PrimaryKey @NonNull
 	public String move; //move name, foreign key to moveEntity
 	
+	public String name; //actual name formatted
+	
 	public String desc; //description
 	
 	public String shortDesc; //shortened description, use this in move list
