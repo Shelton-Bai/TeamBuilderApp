@@ -18,6 +18,8 @@ import com.example.teambuilderapp.database.ItemDao;
 import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
+import com.example.teambuilderapp.database.MoveDao;
+import com.example.teambuilderapp.database.MoveEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
@@ -34,6 +36,7 @@ public class ActivityMain extends AppCompatActivity {
 	AbilityDao adao;
 	ItemDao idao;
 	ItemDescriptionDao iddao;
+	MoveDao mdao;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,23 +53,20 @@ public class ActivityMain extends AppCompatActivity {
 		adao = db.abilityDao();
 		idao = db.itemDao();
 		iddao = db.itemDescriptionDao();
+		mdao = db.moveDao();
 		DBPrePop.prePopPokemon(getApplicationContext());
 		DBPrePop.prePopAbilities(getApplicationContext());
 		DBPrePop.prePopItems(getApplicationContext());
 		DBPrePop.prePopItemDescriptions(getApplicationContext());
+		DBPrePop.prePopMoves(getApplicationContext());
 		
 	}
 	
 	public void testFunction(View v){
-		ArrayList<ItemEntity> itemlist = (ArrayList<ItemEntity>) idao.getAllItems();
-		Log.d(TAG, itemlist.size() + "");
-		for(ItemEntity item : itemlist){
-			ItemDescription desc = iddao.getItemDescription(item.name);
-			if(desc != null){
-				String sdesc = desc.desc;
-				Log.d(item.name, sdesc);
-			}
-			
+		ArrayList<MoveEntity> list = (ArrayList<MoveEntity>) mdao.getAllMoves();
+		Log.d(TAG, list.size() + "");
+		for(MoveEntity element : list){
+			Log.d(element.name, String.format("%s %s move", element.category, element.type));
 		}
 	}
 }

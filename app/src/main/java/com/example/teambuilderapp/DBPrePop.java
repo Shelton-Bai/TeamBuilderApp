@@ -9,6 +9,8 @@ import com.example.teambuilderapp.database.ItemDao;
 import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
+import com.example.teambuilderapp.database.MoveDao;
+import com.example.teambuilderapp.database.MoveEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
@@ -343,5 +345,83 @@ public class DBPrePop {
 			}
 		}).start();
 	}
-
+	public static List<MoveEntity> parseMoves(Context context){
+		List<MoveEntity> moves = new ArrayList<>();
+		
+		try {
+			InputStream is = context.getAssets().open("moves.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String moveName = reader.nextName();
+				MoveEntity move = new MoveEntity(moveName);
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					String fieldName = reader.nextName();
+					switch (fieldName){
+						case "name":
+							move.name = reader.nextString();
+							break;
+						case "num":
+							move.num = reader.nextInt();
+							break;
+						case "accuracy":
+							String acc = reader.nextString();
+							if(acc.equals("true")){
+								move.accuracy = -1;
+							} else {
+								move.accuracy = Integer.parseInt(acc);
+							}
+							break;
+						case "basePower":
+							move.power = reader.nextInt();
+							break;
+						case "category":
+							move.category = reader.nextString();
+							break;
+						case "pp":
+							move.pp = reader.nextInt();
+							break;
+						case "priority":
+							move.priority = reader.nextInt();
+							break;
+						case "target":
+							move.target = reader.nextString();
+							break;
+						case "type":
+							move.type = reader.nextString();
+							break;
+						default:
+							reader.skipValue();
+					}
+				}
+				moves.add(move);
+				reader.endObject();
+			}
+			reader.endObject();
+			reader.close();
+			is.close();
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return moves;
+	}
+	public static void prePopMoves(Context context){
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		MoveDao dao = db.moveDao();
+		
+		List<MoveEntity> list = parseMoves(context);
+		MoveEntity[] array = list.toArray(new MoveEntity[list.size()]);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.insert(array);
+				Log.d("PrePop", "Populated Moves");
+			}
+		}).start();
+	}
 }

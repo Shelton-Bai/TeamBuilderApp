@@ -9,6 +9,8 @@ public class MoveEntity {
 	@PrimaryKey
 	public int num; //move id number
 	
+	public String move; //move name, no spaces or punctuation
+	
 	public String name; //move name
 	
 	public int accuracy; //accuracy, or -1 if can't miss
@@ -24,5 +26,9 @@ public class MoveEntity {
 	public String type; //move type
 	
 	public String target; //targetting type
+	
+	public MoveEntity (String move){
+		this.move = move;
+	}
 	
 }
