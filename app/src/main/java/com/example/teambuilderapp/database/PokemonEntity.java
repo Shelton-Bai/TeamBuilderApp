@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 public class PokemonEntity {
 
 	@PrimaryKey @NonNull
+	public String pokemon; //unformatted name for comparisons
+	
 	public String name;
 	
 	public int num; //national dex #
@@ -44,8 +46,8 @@ public class PokemonEntity {
 	public String tag; //whether a pokemon is legendary, sublegend, mythical, or paradox, etc. (can be null)
 	
 	public String isNonStandard;
-	public PokemonEntity(@NonNull String name){
-		this.name = name;
+	public PokemonEntity(@NonNull String pokemon){
+		this.pokemon = pokemon;
 	}
 	
 }

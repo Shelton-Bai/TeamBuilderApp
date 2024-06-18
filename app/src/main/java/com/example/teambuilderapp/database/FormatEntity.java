@@ -1,13 +1,14 @@
 package com.example.teambuilderapp.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "formats")
 public class FormatEntity {
 	
-	@PrimaryKey
-	public String pokemon; //name,
+	@PrimaryKey @NonNull
+	public String pokemon; //name unformatted
 	
 	public String isNonstandard; //null if standard, else usually past
 	
@@ -16,4 +17,8 @@ public class FormatEntity {
 	public String doublesTier; //doubles formats tier
 	
 	public String natDexTier; //national dex formats tier
+	
+	public FormatEntity(@NonNull String pokemon){
+		this.pokemon = pokemon;
+	}
 }

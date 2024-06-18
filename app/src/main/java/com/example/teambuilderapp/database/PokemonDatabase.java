@@ -7,8 +7,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.Database;
 
 @Database(entities = {PokemonEntity.class, ItemEntity.class, ItemDescription.class,
-					  AbilityEntity.class, MoveEntity.class, MoveDescription.class},
-			version = 2)
+					  AbilityEntity.class, MoveEntity.class, MoveDescription.class,
+					  FormatEntity.class, LearnsetEntity.class},
+			version = 3)
 public abstract class PokemonDatabase extends RoomDatabase {
 	private static volatile PokemonDatabase instance;
 	
@@ -18,6 +19,8 @@ public abstract class PokemonDatabase extends RoomDatabase {
 	public abstract AbilityDao abilityDao();
 	public abstract MoveDao moveDao();
 	public abstract MoveDescriptionDao moveDescriptionDao();
+	public abstract FormatDao formatDao();
+	public abstract LearnsetDao learnsetDao();
 	
 	public static PokemonDatabase getDatabase(final Context context){
 		if(instance == null){

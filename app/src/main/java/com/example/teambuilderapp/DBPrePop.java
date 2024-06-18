@@ -5,10 +5,14 @@ import android.content.Context;
 
 import com.example.teambuilderapp.database.AbilityDao;
 import com.example.teambuilderapp.database.AbilityEntity;
+import com.example.teambuilderapp.database.FormatDao;
+import com.example.teambuilderapp.database.FormatEntity;
 import com.example.teambuilderapp.database.ItemDao;
 import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
+import com.example.teambuilderapp.database.LearnsetDao;
+import com.example.teambuilderapp.database.LearnsetEntity;
 import com.example.teambuilderapp.database.MoveDao;
 import com.example.teambuilderapp.database.MoveDescription;
 import com.example.teambuilderapp.database.MoveDescriptionDao;
@@ -46,6 +50,7 @@ public class DBPrePop {
 				while(reader.hasNext()){
 					String fieldName = reader.nextName();
 					//process each field
+//					Log.d(pokemonName, fieldName);
 					switch (fieldName){
 						case "num":
 							int num = reader.nextInt();
@@ -74,6 +79,7 @@ public class DBPrePop {
 						
 						case "gender":
 							p.gender = reader.nextString();
+							break;
 						
 						case "baseStats":
 							reader.beginObject();
@@ -155,17 +161,20 @@ public class DBPrePop {
 		return pokemonList;
 	}
 	public static void prePopPokemon(Context context){
-		
-		PokemonDatabase db = PokemonDatabase.getDatabase(context);
-		PokemonDao dao = db.pokemonDao();
-		
-		List<PokemonEntity> list = parsePokedex(context);
-		PokemonEntity[] pokemonArray = list.toArray(new PokemonEntity[list.size()]);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				dao.insertPokemon(pokemonArray);
-				Log.d("PrePop", "Populated Pokemon");
+				long startTime = System.currentTimeMillis();
+				PokemonDatabase db = PokemonDatabase.getDatabase(context);
+				PokemonDao dao = db.pokemonDao();
+				
+				List<PokemonEntity> list = parsePokedex(context);
+				PokemonEntity[] array = list.toArray(new PokemonEntity[list.size()]);
+				
+				dao.insertPokemon(array);
+				
+				long duration = System.currentTimeMillis() - startTime; // Calculate duration
+				Log.d("PrePop", String.format("Populated Pokemon in %d milliseconds", duration));
 			}
 		}).start();
 	}
@@ -413,16 +422,20 @@ public class DBPrePop {
 		return moves;
 	}
 	public static void prePopMoves(Context context){
-		PokemonDatabase db = PokemonDatabase.getDatabase(context);
-		MoveDao dao = db.moveDao();
-		
-		List<MoveEntity> list = parseMoves(context);
-		MoveEntity[] array = list.toArray(new MoveEntity[list.size()]);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
+				long startTime = System.currentTimeMillis();
+				PokemonDatabase db = PokemonDatabase.getDatabase(context);
+				MoveDao dao = db.moveDao();
+				
+				List<MoveEntity> list = parseMoves(context);
+				MoveEntity[] array = list.toArray(new MoveEntity[list.size()]);
+				
 				dao.insert(array);
-				Log.d("PrePop", "Populated Moves");
+				
+				long duration = System.currentTimeMillis() - startTime; // Calculate duration
+				Log.d("PrePop", String.format("Populated Moves in %d milliseconds", duration));
 			}
 		}).start();
 	}
@@ -479,6 +492,141 @@ public class DBPrePop {
 			public void run() {
 				dao.insert(array);
 				Log.d("PrePop", "Populated Move Descriptions");
+			}
+		}).start();
+	}
+	public static List<FormatEntity> parseFormats(Context context){
+		List<FormatEntity> formats = new ArrayList<>();
+		
+		try {
+			InputStream is = context.getAssets().open("formats.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String pokemonName = reader.nextName();
+				FormatEntity format = new FormatEntity(pokemonName);
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					String fieldName = reader.nextName();
+//					Log.d(pokemonName, fieldName);
+					switch (fieldName){
+						case "tier":
+							format.tier = reader.nextString();
+							break;
+						case "isNonstandard":
+							format.isNonstandard = reader.nextString();
+							break;
+						case "doublesTier":
+							format.doublesTier = reader.nextString();
+							break;
+						case "natDexTier":
+							format.natDexTier = reader.nextString();
+							break;
+						default:
+							reader.skipValue();
+							break;
+					}
+				}
+				formats.add(format);
+				reader.endObject();
+			}
+			reader.endObject();
+			reader.close();
+			is.close();
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return formats;
+	}
+	public static void prePopFormats(Context context){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				long startTime = System.currentTimeMillis();
+				PokemonDatabase db = PokemonDatabase.getDatabase(context);
+				FormatDao dao = db.formatDao();
+				
+				List<FormatEntity> list = parseFormats(context);
+				FormatEntity[] array = list.toArray(new FormatEntity[list.size()]);
+				
+				dao.insert(array);
+				
+				long duration = System.currentTimeMillis() - startTime; // Calculate duration
+				Log.d("PrePop", String.format("Populated Formats in %d milliseconds", duration));
+			}
+		}).start();
+	}
+	public static List<LearnsetEntity> parseLearnset(Context context){
+		List<LearnsetEntity> learnsets = new ArrayList<>();
+		
+		try {
+			InputStream is = context.getAssets().open("learnsets.json");
+			JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+			
+			reader.beginObject();
+			while (reader.hasNext()) {
+				String pokemonName = reader.nextName();
+				
+				
+				reader.beginObject();
+				while(reader.hasNext()){
+					String fieldName = reader.nextName();
+					switch (fieldName){
+						case "learnset": //get to learnset field of pokemon
+							reader.beginObject();
+							while(reader.hasNext()){ //for each move in learnset
+								LearnsetEntity learnset = new LearnsetEntity(pokemonName);
+								String moveName = reader.nextName();
+								learnset.move = moveName;
+								boolean added = false;
+								reader.beginArray();
+								while(reader.hasNext()){ //check each learn method for move
+									String moveCode = reader.nextString();
+									if(moveCode.charAt(0) == '9' && added == false){ //if learned in gen 9, add to list
+										learnsets.add(learnset);
+										added = true;
+									}
+								}
+								reader.endArray();
+							}
+							reader.endObject();
+							break;
+						default:
+							reader.skipValue();
+							break;
+					}
+				}
+				reader.endObject();
+			}
+			reader.endObject();
+			reader.close();
+			is.close();
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return learnsets;
+	}
+	public static void prePopLearnsets(Context context){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				long startTime = System.currentTimeMillis();
+				PokemonDatabase db = PokemonDatabase.getDatabase(context);
+				LearnsetDao dao = db.learnsetDao();
+				
+				List<LearnsetEntity> list = parseLearnset(context);
+				LearnsetEntity[] array = list.toArray(new LearnsetEntity[list.size()]);
+				
+				dao.insert(array);
+				
+				long duration = System.currentTimeMillis() - startTime; // Calculate duration
+				Log.d("PrePop", String.format("Populated Learnsets in %d milliseconds", duration));
 			}
 		}).start();
 	}

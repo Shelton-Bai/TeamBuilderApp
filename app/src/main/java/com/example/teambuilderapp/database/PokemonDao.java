@@ -28,6 +28,13 @@ public interface PokemonDao {
 	@Query("SELECT * FROM pokemon")
 	public List<PokemonEntity> getAllPokemon();
 	
+	@Query("SELECT * FROM pokemon LIMIT :limit")
+	public List<PokemonEntity> getPokemonLimit(int limit);
+	
+	@Query("SELECT * FROM pokemon LEFT JOIN formats ON pokemon.pokemon = formats.pokemon " +
+			"WHERE formats.isNonstandard IS NULL")
+	public List<PokemonEntity> getLegalPokemon();
+	
 	@RawQuery
 	public List<PokemonEntity> getFilteredPokemon(SupportSQLiteQuery query);
 }

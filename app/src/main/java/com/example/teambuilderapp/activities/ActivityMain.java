@@ -14,10 +14,14 @@ import com.example.teambuilderapp.DBPrePop;
 import com.example.teambuilderapp.R;
 import com.example.teambuilderapp.database.AbilityDao;
 import com.example.teambuilderapp.database.AbilityEntity;
+import com.example.teambuilderapp.database.FormatDao;
+import com.example.teambuilderapp.database.FormatEntity;
 import com.example.teambuilderapp.database.ItemDao;
 import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
+import com.example.teambuilderapp.database.LearnsetDao;
+import com.example.teambuilderapp.database.LearnsetEntity;
 import com.example.teambuilderapp.database.MoveDao;
 import com.example.teambuilderapp.database.MoveDescription;
 import com.example.teambuilderapp.database.MoveDescriptionDao;
@@ -40,6 +44,8 @@ public class ActivityMain extends AppCompatActivity {
 	ItemDescriptionDao iddao;
 	MoveDao mdao;
 	MoveDescriptionDao mddao;
+	FormatDao fdao;
+	LearnsetDao ldao;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,26 +64,26 @@ public class ActivityMain extends AppCompatActivity {
 		iddao = db.itemDescriptionDao();
 		mdao = db.moveDao();
 		mddao = db.moveDescriptionDao();
+		fdao = db.formatDao();
+		ldao = db.learnsetDao();
 		DBPrePop.prePopPokemon(getApplicationContext());
 		DBPrePop.prePopAbilities(getApplicationContext());
 		DBPrePop.prePopItems(getApplicationContext());
 		DBPrePop.prePopItemDescriptions(getApplicationContext());
 		DBPrePop.prePopMoves(getApplicationContext());
 		DBPrePop.prePopMoveDescriptions(getApplicationContext());
+		DBPrePop.prePopFormats(getApplicationContext());
+		DBPrePop.prePopLearnsets(getApplicationContext());
 		
 	}
 	
 	public void testFunction(View v){
-		ArrayList<MoveEntity> list = (ArrayList<MoveEntity>) mdao.getAllMoves();
+		ArrayList<PokemonEntity> list = (ArrayList<PokemonEntity>) pdao.getPokemonLimit(10);
 		Log.d(TAG, list.size() + "");
-		for(MoveEntity element : list){
-			MoveDescription m = mddao.getMoveDescription(element.move);
-			if(m != null){
-				if(m.shortDesc == null){
-					Log.d(TAG, m.name);
-				} else {
-					Log.d(element.name, m.shortDesc);
-				}
+		for(PokemonEntity element : list){
+			ArrayList<LearnsetEntity> l = (ArrayList<LearnsetEntity>) ldao.getLearnsetOf(element.pokemon);
+			for(LearnsetEntity a : l){
+				Log.d(element.name, a.move);
 			}
 		}
 	}
