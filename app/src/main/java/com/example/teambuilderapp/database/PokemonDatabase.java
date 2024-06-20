@@ -6,6 +6,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.Database;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Database(entities = {PokemonEntity.class, ItemEntity.class, ItemDescription.class,
 					  AbilityEntity.class, MoveEntity.class, MoveDescription.class,
 					  FormatEntity.class, LearnsetEntity.class},

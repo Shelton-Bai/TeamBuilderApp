@@ -2,6 +2,10 @@ package com.example.teambuilderapp;
 
 import android.annotation.SuppressLint;
 
+import com.example.teambuilderapp.database.MoveDescription;
+import com.example.teambuilderapp.database.MoveEntity;
+import com.example.teambuilderapp.database.PokemonEntity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +22,11 @@ public class PokemonSet implements Serializable {
 	public int level;
 	public boolean shiny;
 	public String tera;
-	public ArrayList<String> moves;
+	public ArrayList<MoveEntity> moves;
 	public int[] evs;
 	public int[] ivs;
 	public String nature;
+	public PokemonEntity speciesData;
 	public static final HashMap<String, int[]> natureMap = new HashMap();
 	static{
 		natureMap.put("Adamant", new int[]{1, 3});    // Attack +, Special Attack -
@@ -57,12 +62,27 @@ public class PokemonSet implements Serializable {
 		this.ability = "Overgrow";
 		this.level = 100;
 		this.tera = "Normal";
-		this.moves = new ArrayList<String>();
+		this.moves = new ArrayList<MoveEntity>();
 		this.evs = new int[6];
 		this.ivs = new int[6];
 		Arrays.fill(this.evs, 0);
 		Arrays.fill(this.ivs, 31);
 		this.nature = "Quirky";
+	}
+	
+	public PokemonSet(PokemonEntity data){
+		this.speciesData = data;
+		this.species = data.name;
+		this.ability = data.ability0;
+		this.tera = data.type1;
+		
+		this.moves = new ArrayList<MoveEntity>();
+		this.evs = new int[6];
+		this.ivs = new int[6];
+		Arrays.fill(this.evs, 0);
+		Arrays.fill(this.ivs, 31);
+		this.nature = "Quirky";
+		this.level = 100;
 	}
 	
 	@SuppressLint("DefaultLocale")
@@ -167,8 +187,8 @@ public class PokemonSet implements Serializable {
 		if(!ivString.equals("")){
 			export += String.format("  \nIVs: %s", ivString);
 		}
-		for(String move : moves){
-			export += String.format("  \n- %s", move);
+		for(MoveEntity move : moves){
+			export += String.format("  \n- %s", move.name);
 		}
 		
 		return export;

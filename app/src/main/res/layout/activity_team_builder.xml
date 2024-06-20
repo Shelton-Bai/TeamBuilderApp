@@ -7,48 +7,47 @@
     android:layout_height="match_parent"
     tools:context=".activities.ActivityTeambuilder">
 
-    <TextView
-        android:id="@+id/Search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pokemon"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
-
     <EditText
-        android:id="@+id/pokemonSearch"
+        android:id="@+id/teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Team Name"
         android:inputType="text"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/Search"
-        app:layout_constraintTop_toBottomOf="@+id/Search" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backToTeams" />
 
-    <LinearLayout
-        android:id="@+id/searchResults"
-        android:layout_width="409dp"
-        android:layout_height="598dp"
-        android:orientation="vertical"
+    <Button
+        android:id="@+id/backToTeams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="backButton"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rosterView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/addPokemon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamName" />
+
+    <Button
+        android:id="@+id/addPokemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Pokemon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:onClick="backButton"
-        android:text="Back"
-        app:layout_constraintStart_toEndOf="@+id/Search"
-        app:layout_constraintTop_toTopOf="@+id/Search" />
+        app:layout_constraintVertical_bias="0.95" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,9 @@ public interface MoveDao {
 	@Query("SELECT * FROM moves")
 	public List<MoveEntity> getAllMoves();
 	
+	@Query("SELECT * FROM moves LIMIT :num")
+	public List<MoveEntity> getMovesLimit(int num);
+	
 	@RawQuery
 	public List<MoveEntity> getFilteredMoves(SupportSQLiteQuery query);
 	

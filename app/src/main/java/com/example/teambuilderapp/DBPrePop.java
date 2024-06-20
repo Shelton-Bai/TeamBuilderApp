@@ -31,6 +31,8 @@ import java.util.List;
 import android.util.JsonReader;
 
 public class DBPrePop {
+	
+	
 
 	public static List<PokemonEntity> parsePokedex(Context context){
 		List<PokemonEntity> pokemonList = new ArrayList<>();
@@ -629,5 +631,21 @@ public class DBPrePop {
 				Log.d("PrePop", String.format("Populated Learnsets in %d milliseconds", duration));
 			}
 		}).start();
+	}
+	
+	public static ArrayList<PokemonSet> getDefaultTeam(Context context) {
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		PokemonDao dao = db.pokemonDao();
+		MoveDao dao2 = db.moveDao();
+		
+		ArrayList<PokemonSet> sets = new ArrayList<>();
+		ArrayList<PokemonEntity> mons = (ArrayList<PokemonEntity>) dao.getPokemonLimit(6);
+		ArrayList<MoveEntity> moves = (ArrayList<MoveEntity>) dao2.getMovesLimit(4);
+		for(PokemonEntity mon : mons){
+			PokemonSet set = new PokemonSet(mon);
+			set.moves = moves;
+			sets.add(set);
+		}
+		return sets;
 	}
 }

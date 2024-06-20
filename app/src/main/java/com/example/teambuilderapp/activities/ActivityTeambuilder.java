@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -15,16 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teambuilderapp.DBPrePop;
 import com.example.teambuilderapp.PokemonSet;
 import com.example.teambuilderapp.PokemonTeam;
 import com.example.teambuilderapp.R;
+import com.example.teambuilderapp.RosterViewAdapter;
+import com.example.teambuilderapp.RosterViewInterface;
 
 
-public class ActivityTeambuilder extends AppCompatActivity {
+public class ActivityTeambuilder extends AppCompatActivity implements RosterViewInterface {
 	private String TAG = "oogabooga";
 	PokemonTeam team;
 	Intent intent;
+	
+	EditText teamName;
+	Button backToTeams;
+	RecyclerView rosterView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,73 +48,20 @@ public class ActivityTeambuilder extends AppCompatActivity {
 		
 		intent = getIntent();
 		
-		team = (PokemonTeam) intent.getSerializableExtra("team");
+//		team = (PokemonTeam) intent.getSerializableExtra("team");
 		
-		EditText pokemonSearch = findViewById(R.id.pokemonSearch);
-		LinearLayout searchResults = findViewById(R.id.searchResults);
+		teamName = findViewById(R.id.teamName);
+		backToTeams = findViewById(R.id.backToTeams);
+		rosterView = findViewById(R.id.rosterView);
 		
-		//set initial pokemon to show
-//		ArrayList<String> pokemon = pokemonSearch("");
-//		String result = "initial" + ": ";
-//		for(String mon : pokemon){
-//			result += mon + ",";
-//
-//			TextView pText = new TextView(getApplicationContext());
-//			pText.setText(mon);
-//			pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-//			pText.setPadding(60, 20, 5, 5);
-//
-//			pText.setOnClickListener(new View.OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//					addPokemon(mon, team);
-//				}
-//			});
-//
-//			searchResults.addView(pText);
-//
-//		}
-//		Log.d("oogabooga", result);
-		
-		pokemonSearch.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			
-			}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				String newText = s.toString();
-				searchResults.removeAllViews();
-				
-//				ArrayList<String> pokemon = pokemonSearch(newText);
-//				String result = newText + ": ";
-//				for(String mon : pokemon){
-//					result += mon + ",";
-//
-//					TextView pText = new TextView(getApplicationContext());
-//					pText.setText(mon);
-//					pText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-//					pText.setPadding(60, 20, 5, 5);
-//
-//					pText.setOnClickListener(new View.OnClickListener() {
-//						@Override
-//						public void onClick(View v) {
-//							addPokemon(mon, team);
-//						}
-//					});
-//
-//					searchResults.addView(pText);
-//
-//				}
-//				Log.d("oogabooga", result);
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-			
-			}
-		});
+		team = new PokemonTeam("default");
+		team.roster = DBPrePop.getDefaultTeam(getApplicationContext());
+		for(PokemonSet p : team.roster){
+			Log.d(TAG, p.species);
+		}
+		RosterViewAdapter rosterAdapter = new RosterViewAdapter(this,team.roster, this);
+		rosterView.setAdapter(rosterAdapter);
+		rosterView.setLayoutManager(new LinearLayoutManager(this));
 		
 	}
 	
@@ -120,4 +77,8 @@ public class ActivityTeambuilder extends AppCompatActivity {
 	}
 	
 	
+	@Override
+	public void onSetClick(int position) {
+	
+	}
 }
