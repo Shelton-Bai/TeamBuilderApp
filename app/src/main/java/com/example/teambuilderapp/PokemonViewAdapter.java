@@ -17,14 +17,14 @@ import com.example.teambuilderapp.database.PokemonEntity;
 import java.util.ArrayList;
 
 public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.PokemonViewHolder>{
-	private final SearchResultViewInterface searchInterface;
+	private final pokemonListViewInterface pokemonListInterface;
 	Context context;
 	public ArrayList<PokemonEntity> mons;
 	
-	public PokemonViewAdapter(Context context, ArrayList<PokemonEntity> mons, SearchResultViewInterface searchInterface){
+	public PokemonViewAdapter(Context context, ArrayList<PokemonEntity> mons, pokemonListViewInterface pokemonListInterface){
 		this.context = context;
 		this.mons = mons;
-		this.searchInterface = searchInterface;
+		this.pokemonListInterface = pokemonListInterface;
 	}
 	
 	@NonNull
@@ -33,7 +33,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.pokemon_display_layout, parent, false);
 		
-		return new PokemonViewAdapter.PokemonViewHolder(view, searchInterface);
+		return new PokemonViewAdapter.PokemonViewHolder(view, pokemonListInterface);
 	}
 	
 	@Override
@@ -108,7 +108,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 		TextView speValue;
 		TextView bstValue;
 		
-		public PokemonViewHolder(@NonNull View itemView, SearchResultViewInterface searchInterface) {
+		public PokemonViewHolder(@NonNull View itemView, pokemonListViewInterface searchInterface) {
 			super(itemView);
 			
 			pokemonName = itemView.findViewById(R.id.pokemonName);

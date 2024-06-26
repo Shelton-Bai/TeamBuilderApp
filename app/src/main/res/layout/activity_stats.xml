@@ -20,7 +20,7 @@
 
     <include
         android:id="@+id/editStatBlock"
-        layout="@layout/stat_edit_block"
+        layout="@layout/stat_edit_block_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"

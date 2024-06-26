@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "pokemon")
-public class PokemonEntity {
+public class PokemonEntity implements Serializable {
 
 	@PrimaryKey @NonNull
 	public String pokemon; //unformatted name for comparisons

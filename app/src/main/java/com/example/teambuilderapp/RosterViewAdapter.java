@@ -80,7 +80,7 @@ public class RosterViewAdapter extends RecyclerView.Adapter<RosterViewAdapter.Ro
 	}
 	
 	//not done update as needed
-	public void configTypeImage(ImageView image, String type){
+	public static void configTypeImage(ImageView image, String type){
 		if(type == null){
 			image.setVisibility(View.INVISIBLE);
 		} else {

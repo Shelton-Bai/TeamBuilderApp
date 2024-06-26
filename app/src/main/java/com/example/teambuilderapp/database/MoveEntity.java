@@ -3,8 +3,10 @@ package com.example.teambuilderapp.database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "moves")
-public class MoveEntity {
+public class MoveEntity implements Serializable {
 	
 	@PrimaryKey
 	public int num; //move id number

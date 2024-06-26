@@ -8,7 +8,7 @@
     tools:context=".activities.ActivityPokemonBuilder">
 
     <EditText
-        android:id="@+id/pokemonSearchBar"
+        android:id="@+id/pokemonSearchBar2"
         android:layout_width="212dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -29,8 +29,8 @@
         android:hint="Item"
         android:imeOptions="actionDone"
         android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/pokemonSearchBar"
-        app:layout_constraintTop_toBottomOf="@+id/pokemonSearchBar" />
+        app:layout_constraintStart_toStartOf="@+id/pokemonSearchBar2"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonSearchBar2" />
 
     <EditText
         android:id="@+id/abilitySearchBar"
@@ -51,8 +51,8 @@
         android:layout_marginStart="40dp"
         android:onClick="onMovesButtonClick"
         android:text="Moves"
-        app:layout_constraintStart_toEndOf="@+id/pokemonSearchBar"
-        app:layout_constraintTop_toTopOf="@+id/pokemonSearchBar" />
+        app:layout_constraintStart_toEndOf="@+id/pokemonSearchBar2"
+        app:layout_constraintTop_toTopOf="@+id/pokemonSearchBar2" />
 
     <Button
         android:id="@+id/statsButton"

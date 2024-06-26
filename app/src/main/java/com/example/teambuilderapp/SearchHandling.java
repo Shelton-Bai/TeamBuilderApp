@@ -47,7 +47,7 @@ public class SearchHandling {
 		
 //		ArrayList<PokemonEntity> pokemon = getSamplePokemon(context);
 		
-		ArrayList<PokemonEntity> pokemon = (ArrayList<PokemonEntity>) dao.getAllPokemon();
+		ArrayList<PokemonEntity> pokemon = (ArrayList<PokemonEntity>) dao.getLegalPokemon();
 		
 		ArrayList<PokemonEntity> results = new ArrayList<>();
 		

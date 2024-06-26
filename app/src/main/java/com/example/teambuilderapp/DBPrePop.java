@@ -640,7 +640,7 @@ public class DBPrePop {
 		
 		ArrayList<PokemonSet> sets = new ArrayList<>();
 		ArrayList<PokemonEntity> mons = (ArrayList<PokemonEntity>) dao.getPokemonLimit(6);
-		ArrayList<MoveEntity> moves = (ArrayList<MoveEntity>) dao2.getMovesLimit(4);
+		ArrayList<MoveEntity> moves = (ArrayList<MoveEntity>) dao2.getMovesLimit(3);
 		for(PokemonEntity mon : mons){
 			PokemonSet set = new PokemonSet(mon);
 			set.moves = moves;

@@ -32,11 +32,11 @@ import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
 import com.example.teambuilderapp.PokemonViewAdapter;
 import com.example.teambuilderapp.R;
-import com.example.teambuilderapp.SearchResultViewInterface;
+import com.example.teambuilderapp.pokemonListViewInterface;
 
 import java.util.ArrayList;
 
-public class ActivityPokemonBuilder extends AppCompatActivity implements SearchResultViewInterface {
+public class ActivityPokemonBuilder extends AppCompatActivity implements pokemonListViewInterface {
 	private String TAG = "oogabooga";
 	enum listType {
 		POKEMON,
@@ -90,7 +90,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements SearchR
 		DBPrePop.prePopAbilities(getApplicationContext());
 		
 		searchResults = findViewById(R.id.searchResults);
-		pokemonSearch = findViewById(R.id.pokemonSearchBar);
+		pokemonSearch = findViewById(R.id.pokemonSearchBar2);
 		itemSearch = findViewById(R.id.itemSearchBar);
 		abilitySearch = findViewById(R.id.abilitySearchBar);
 		sortDropdown = findViewById(R.id.sortDropdown);

@@ -1,5 +1,5 @@
 package com.example.teambuilderapp;
 
-public interface SearchResultViewInterface {
+public interface pokemonListViewInterface {
 	void onResultClick(int position);
 }

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ActivitySetBuilder">
+
+    <TextView
+        android:id="@+id/psetSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Necrozma-Dawn-Wings"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/choosePokemon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/choosePokemon" />
+
+    <Button
+        android:id="@+id/choosePokemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onChoosePokemonClick"
+        android:text="Choose Pokemon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/psetAbility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ability"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/psetSpecies"
+        app:layout_constraintTop_toBottomOf="@+id/psetSpecies" />
+
+    <TextView
+        android:id="@+id/psetItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Item"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/psetAbility"
+        app:layout_constraintTop_toBottomOf="@+id/psetAbility" />
+
+    <Button
+        android:id="@+id/chooseAbility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Ability"
+        app:layout_constraintBottom_toBottomOf="@+id/psetAbility"
+        app:layout_constraintEnd_toEndOf="@+id/choosePokemon"
+        app:layout_constraintStart_toStartOf="@+id/choosePokemon"
+        app:layout_constraintTop_toTopOf="@+id/psetAbility" />
+
+    <Button
+        android:id="@+id/chooseItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Item"
+        app:layout_constraintBottom_toBottomOf="@+id/psetItem"
+        app:layout_constraintEnd_toEndOf="@+id/choosePokemon"
+        app:layout_constraintStart_toStartOf="@+id/choosePokemon"
+        app:layout_constraintTop_toTopOf="@+id/psetItem" />
+
+    <Button
+        android:id="@+id/editDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pokemon Details"
+        app:layout_constraintEnd_toEndOf="@+id/choosePokemon"
+        app:layout_constraintStart_toStartOf="@+id/choosePokemon"
+        app:layout_constraintTop_toBottomOf="@+id/chooseItem" />
+
+    <Button
+        android:id="@+id/psetDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="doneEditingPokemon"
+        android:text="Done"
+        app:layout_constraintEnd_toEndOf="@+id/editDetails"
+        app:layout_constraintStart_toStartOf="@+id/editDetails"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails" />
+
+    <ImageView
+        android:id="@+id/psetSprite"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/psetType1"
+        app:layout_constraintTop_toBottomOf="@+id/psetItem"
+        app:srcCompat="@drawable/fire"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/psetType1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        app:tint="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/psetItem"
+        app:layout_constraintTop_toBottomOf="@+id/psetItem"
+        app:srcCompat="@drawable/fire" />
+
+    <ImageView
+        android:id="@+id/psetType2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="@+id/psetType1"
+        app:layout_constraintTop_toBottomOf="@+id/psetType1"
+        app:srcCompat="@drawable/fire"
+        app:tint="@color/black" />
+
+    <View
+        android:id="@+id/detailsMovesDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/editMoves"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/editMoves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="Edit Moves"
+        app:layout_constraintBottom_toTopOf="@+id/psetMove1Type"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/psetMove1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="move1"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/psetMove1Type"
+        app:layout_constraintStart_toEndOf="@+id/psetMove1Type"
+        app:layout_constraintTop_toTopOf="@+id/psetMove1Type" />
+
+    <ImageView
+        android:id="@+id/psetMove1Type"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/psetMove2Type"
+        app:layout_constraintStart_toStartOf="@+id/editMoves"
+        app:srcCompat="@drawable/fire"
+        app:tint="#FF0000" />
+
+    <TextView
+        android:id="@+id/psetMove2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="move2"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/psetMove2Type"
+        app:layout_constraintStart_toEndOf="@+id/psetMove1Type"
+        app:layout_constraintTop_toTopOf="@+id/psetMove2Type" />
+
+    <ImageView
+        android:id="@+id/psetMove2Type"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/psetMove3Type"
+        app:layout_constraintStart_toStartOf="@+id/editMoves"
+        app:srcCompat="@drawable/fire"
+        app:tint="#FF0000" />
+
+    <TextView
+        android:id="@+id/psetMove3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="move3"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/psetMove3Type"
+        app:layout_constraintStart_toEndOf="@+id/psetMove3Type"
+        app:layout_constraintTop_toTopOf="@+id/psetMove3Type" />
+
+    <ImageView
+        android:id="@+id/psetMove3Type"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/psetMove4Type"
+        app:layout_constraintStart_toStartOf="@+id/editMoves"
+        app:srcCompat="@drawable/fire"
+        app:tint="#FF0000" />
+
+    <TextView
+        android:id="@+id/psetMove4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="move4"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/psetMove4Type"
+        app:layout_constraintStart_toEndOf="@+id/psetMove4Type"
+        app:layout_constraintTop_toTopOf="@+id/psetMove4Type" />
+
+    <ImageView
+        android:id="@+id/psetMove4Type"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/statsMovesDivider"
+        app:layout_constraintStart_toStartOf="@+id/editMoves"
+        app:srcCompat="@drawable/fire"
+        app:tint="#FF0000" />
+
+    <View
+        android:id="@+id/statsMovesDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/editStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:onClick="onStatsButtonClick"
+            android:text="Edit Stats" />
+
+        <include
+            android:id="@+id/hpStatBar"
+            layout="@layout/stat_display_small_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/atkStatBar"
+            layout="@layout/stat_display_small_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/defStatBar"
+            layout="@layout/stat_display_small_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/spaStatBar"
+            layout="@layout/stat_display_small_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/spdStatBar"
+            layout="@layout/stat_display_small_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/speStatBar"
+            layout="@layout/stat_display_small_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
