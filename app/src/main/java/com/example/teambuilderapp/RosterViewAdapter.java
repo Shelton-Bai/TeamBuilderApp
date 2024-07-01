@@ -100,6 +100,82 @@ public class RosterViewAdapter extends RecyclerView.Adapter<RosterViewAdapter.Ro
 					image.setImageResource(R.drawable.grass);
 					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#009900")));
 					break;
+				case "water":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.water);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#6390F0")));
+					break;
+				case "electric":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.electric);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F7D02C")));
+					break;
+				case "ice":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.ice);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#96D9D6")));
+					break;
+				case "fighting":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.fighting);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#C22E28")));
+					break;
+				case "ground":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.ground);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#E2BF65")));
+					break;
+				case "flying":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.flying);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#A98FF3")));
+					break;
+				case "bug":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.bug);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#A6B91A")));
+					break;
+				case "rock":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.rock);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#B6A136")));
+					break;
+				case "ghost":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.ghost);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#735797")));
+					break;
+				case "dragon":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.dragon);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#6F35FC")));
+					break;
+				case "dark":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.dark);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#705746")));
+					break;
+				case "steel":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.steel);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#B7B7CE")));
+					break;
+				case "fairy":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.fairy);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#D685AD")));
+					break;
+				case "psychic":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.psychic);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F95587")));
+					break;
+				case "normal":
+					image.setVisibility(View.VISIBLE);
+					image.setImageResource(R.drawable.normal);
+					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#A8A77A")));
+					break;
+				
 				default:
 					image.setVisibility(View.VISIBLE);
 					image.setImageResource(R.drawable.grass);

@@ -106,6 +106,37 @@ public class ActivitySetBuilder extends AppCompatActivity {
 			pokemonEditLauncher.launch(editStats);
 		}
 	}
+	
+	public void onItemButtonClick(View v){
+		if(currSet == null){
+			Toast.makeText(this, "Select A Pokemon First!", Toast.LENGTH_LONG).show();
+		} else {
+			Intent editItem = new Intent(this, ActivityItemSelect.class);
+			editItem.putExtra("pokemon", currSet);
+			pokemonEditLauncher.launch(editItem);
+		}
+	}
+	
+	public void onAbilityButtonClick(View v){
+		if(currSet == null){
+			Toast.makeText(this, "Select A Pokemon First!", Toast.LENGTH_LONG).show();
+		} else {
+			Intent editAbility = new Intent(this, ActivityAbilitySelect.class);
+			editAbility.putExtra("pokemon", currSet);
+			pokemonEditLauncher.launch(editAbility);
+		}
+	}
+	
+	public void onMovesButtonClick(View v){
+		if(currSet == null){
+			Toast.makeText(this, "Select A Pokemon First!", Toast.LENGTH_LONG).show();
+		} else {
+			Intent editMoves = new Intent(this, ActivityMoveSelect.class);
+			editMoves.putExtra("pokemon", currSet);
+			pokemonEditLauncher.launch(editMoves);
+		}
+	}
+	
 	private void setPokemonInfo(){
 		if(currSet != null){
 			psetSpecies.setText(currSet.species);
@@ -115,7 +146,9 @@ public class ActivitySetBuilder extends AppCompatActivity {
 			RosterViewAdapter.configTypeImage(psetType2, currSet.speciesData.type2);
 			for(int i = 0; i < 4; i++){
 				if(i < currSet.moves.size()){
+					Log.d(TAG, currSet.moves.get(i).name);
 					psetMoves[i].setText(currSet.moves.get(i).name);
+					psetMoves[i].setVisibility(View.VISIBLE);
 					RosterViewAdapter.configTypeImage(psetMoveTypes[i], currSet.moves.get(i).type);
 				} else {
 					psetMoves[i].setVisibility(View.INVISIBLE);

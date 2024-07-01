@@ -24,4 +24,7 @@ public interface ItemDescriptionDao {
 	@Query("SELECT * FROM item_descriptions WHERE item = :itemName LIMIT 1")
 	public ItemDescription getItemDescription(String itemName);
 	
+	@Query("SELECT * FROM item_descriptions")
+	public List<ItemDescription> getAllItemDescriptions();
+	
 }

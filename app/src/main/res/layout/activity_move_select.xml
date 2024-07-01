@@ -7,4 +7,101 @@
     android:layout_height="match_parent"
     tools:context=".activities.ActivityMoveSelect">
 
+    <Button
+        android:id="@+id/doneMoveSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="setDoneMoveSelect"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/filterMoves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Filters"
+        app:layout_constraintBottom_toBottomOf="@+id/doneMoveSelect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/doneMoveSelect" />
+
+    <EditText
+        android:id="@+id/move1SearchBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:ems="10"
+        android:hint="Move 1"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        app:layout_constraintEnd_toStartOf="@+id/moveDivider"
+        app:layout_constraintStart_toStartOf="@+id/doneMoveSelect"
+        app:layout_constraintTop_toBottomOf="@+id/doneMoveSelect" />
+
+    <EditText
+        android:id="@+id/move2SearchBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Move 2"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moveDivider"
+        app:layout_constraintTop_toTopOf="@+id/move1SearchBar" />
+
+    <EditText
+        android:id="@+id/move3SearchBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:ems="10"
+        android:hint="Move 3"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        app:layout_constraintEnd_toStartOf="@+id/moveDivider"
+        app:layout_constraintStart_toStartOf="@+id/doneMoveSelect"
+        app:layout_constraintTop_toBottomOf="@+id/move1SearchBar" />
+
+    <EditText
+        android:id="@+id/move4SearchBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Move 4"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moveDivider"
+        app:layout_constraintTop_toTopOf="@+id/move3SearchBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/moveResults"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/move3SearchBar" />
+
+    <View
+        android:id="@+id/moveDivider"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

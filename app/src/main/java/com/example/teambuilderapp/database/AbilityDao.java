@@ -27,4 +27,7 @@ public interface AbilityDao {
 	@Query("SELECT * FROM abilities WHERE ability = :ability")
 	public List<AbilityEntity> getAbility(String ability);
 	
+	@Query("SELECT * FROM abilities WHERE name = :ability LIMIT 1")
+	public AbilityEntity get1Ability(String ability);
+	
 }

@@ -3,6 +3,14 @@ package com.example.teambuilderapp;
 
 import android.content.Context;
 
+import com.example.teambuilderapp.database.ItemDao;
+import com.example.teambuilderapp.database.ItemDescription;
+import com.example.teambuilderapp.database.ItemDescriptionDao;
+import com.example.teambuilderapp.database.ItemEntity;
+import com.example.teambuilderapp.database.LearnsetDao;
+import com.example.teambuilderapp.database.LearnsetEntity;
+import com.example.teambuilderapp.database.MoveDao;
+import com.example.teambuilderapp.database.MoveEntity;
 import com.example.teambuilderapp.database.PokemonDao;
 import com.example.teambuilderapp.database.PokemonDatabase;
 import com.example.teambuilderapp.database.PokemonEntity;
@@ -101,25 +109,45 @@ public class SearchHandling {
 //		return results;
 	}
 	
-	public static ArrayList<String> itemSearch(String s){
+	public static ArrayList<ItemDescription> itemSearch(String s, Context context){
 		s = s.toLowerCase();
 		
-		String[] testing = {"Life Orb", "Choice Scarf", "Leftovers"};
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		ItemDescriptionDao dao = db.itemDescriptionDao();
 		
-		ArrayList<String> items = new ArrayList<>(Arrays.asList(testing));
-		ArrayList<String> results = new ArrayList<>();
+		ArrayList<ItemDescription> items = (ArrayList<ItemDescription>) dao.getAllItemDescriptions();
+		ArrayList<ItemDescription> results = new ArrayList<>();
 		
 		if(s.equals("")){
 			return items;
 		}
 		
-		for(int i = 0; i < items.size(); i++){
-			if(items.get(i).startsWith(s) ){
-				results.add(items.get(i));
-			}
+		return items;
+		
+//		for(int i = 0; i < items.size(); i++){
+//			if(items.get(i).name.startsWith(s) ){
+//				results.add(items.get(i));
+//			}
+//		}
+		
+//		return results;
+	}
+	
+	public static ArrayList<MoveEntity> getLearnset(String pokemon, Context context){
+		
+		PokemonDatabase db = PokemonDatabase.getDatabase(context);
+		LearnsetDao dao = db.learnsetDao();
+		MoveDao mdao = db.moveDao();
+		
+		ArrayList<MoveEntity> moves = new ArrayList<>();
+		ArrayList<LearnsetEntity> learnset = (ArrayList<LearnsetEntity>) dao.getLearnsetOf(pokemon);
+		
+		for(LearnsetEntity relation : learnset){
+			MoveEntity move = mdao.getMove(relation.move);
+			moves.add(move);
 		}
 		
-		return results;
+		return moves;
 	}
 	
 	

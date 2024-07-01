@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ActivityAbilitySelect">
+        <State />
+      </entry>
       <entry key="ActivityPokemonSelect">
         <State />
       </entry>
@@ -9,9 +12,6 @@
         <State />
       </entry>
       <entry key="PokemonBuilderActivity">
-        <State />
-      </entry>
-      <entry key="StatsActivity">
         <State />
       </entry>
       <entry key="TeamBuilderActivity">

@@ -10,6 +10,8 @@ public class AbilityEntity {
 	@PrimaryKey @NonNull
 	public String ability;
 	
+	public String name; //formatted name for display
+	
 	public String desc; //description
 	
 	public String shortDesc; //shortened description

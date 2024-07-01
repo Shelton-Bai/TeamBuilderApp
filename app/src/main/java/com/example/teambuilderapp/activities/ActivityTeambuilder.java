@@ -101,6 +101,12 @@ public class ActivityTeambuilder extends AppCompatActivity implements RosterView
 		finish();
 	}
 	
+	public void onNewPokemonClick(View v){
+		if(team != null){
+		
+		}
+	}
+	
 	@Override
 	public void onSetClick(int position) {
 		RosterViewAdapter roster = (RosterViewAdapter) rosterView.getAdapter();

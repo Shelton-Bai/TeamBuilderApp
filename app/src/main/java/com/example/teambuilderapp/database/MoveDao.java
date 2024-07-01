@@ -29,6 +29,9 @@ public interface MoveDao {
 	@Query("SELECT * FROM moves LIMIT :num")
 	public List<MoveEntity> getMovesLimit(int num);
 	
+	@Query("SELECT * FROM moves where move = :move LIMIT 1")
+	public MoveEntity getMove(String move);
+	
 	@RawQuery
 	public List<MoveEntity> getFilteredMoves(SupportSQLiteQuery query);
 	

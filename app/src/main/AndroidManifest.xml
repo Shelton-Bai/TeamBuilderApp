@@ -13,6 +13,18 @@
         android:theme="@style/Theme.TeamBuilderApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ActivityMain"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ActivityItemSelect"
+            android:exported="false" />
+        <activity
             android:name=".activities.ActivityMoveSelect"
             android:exported="false" />
         <activity
@@ -40,14 +52,8 @@
             android:name=".activities.ActivityTeams"
             android:exported="true" />
         <activity
-            android:name=".activities.ActivityMain"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".activities.ActivityAbilitySelect"
+            android:exported="true" />
     </application>
 
 </manifest>

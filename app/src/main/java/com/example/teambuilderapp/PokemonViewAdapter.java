@@ -65,28 +65,7 @@ public class PokemonViewAdapter extends RecyclerView.Adapter<PokemonViewAdapter.
 	
 	//not done update as needed
 	public void configTypeImage(ImageView image, String type){
-		if(type == null){
-			image.setVisibility(View.INVISIBLE);
-		} else {
-			switch (type.toLowerCase()){
-				case "fire":
-					image.setVisibility(View.VISIBLE);
-					image.setImageResource(R.drawable.fire);
-					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
-					break;
-				case "poison":
-					image.setVisibility(View.VISIBLE);
-					image.setImageResource(R.drawable.poison);
-					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#9e009e")));
-					break;
-				case "grass":
-					image.setVisibility(View.VISIBLE);
-					image.setImageResource(R.drawable.grass);
-					image.setImageTintList(ColorStateList.valueOf(Color.parseColor("#009900")));
-					break;
-					
-			}
-		}
+		RosterViewAdapter.configTypeImage(image, type);
 	}
 	
 	@Override

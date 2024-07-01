@@ -206,7 +206,7 @@ public class DBPrePop {
 							break;
 							
 						case "name":
-							a.ability = reader.nextString();
+							a.name = reader.nextString();
 							break;
 						
 						default:
@@ -322,7 +322,7 @@ public class DBPrePop {
 					String fieldName = reader.nextName();
 					switch (fieldName){
 						case "name":
-							item.item = reader.nextString();
+							item.name = reader.nextString();
 							break;
 						case "desc":
 							item.desc = reader.nextString();

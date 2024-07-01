@@ -138,7 +138,7 @@ public class ActivityPokemonBuilder extends AppCompatActivity implements pokemon
 	
 	public void onItemSearchClick(View v){
 		
-		ArrayList<String> items = itemSearch("");
+	
 		
 	}
 	

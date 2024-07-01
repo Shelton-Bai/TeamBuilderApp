@@ -20,6 +20,7 @@ import com.example.teambuilderapp.database.ItemDao;
 import com.example.teambuilderapp.database.ItemDescription;
 import com.example.teambuilderapp.database.ItemDescriptionDao;
 import com.example.teambuilderapp.database.ItemEntity;
+import com.example.teambuilderapp.database.ItemTuple;
 import com.example.teambuilderapp.database.LearnsetDao;
 import com.example.teambuilderapp.database.LearnsetEntity;
 import com.example.teambuilderapp.database.MoveDao;
@@ -78,13 +79,10 @@ public class ActivityMain extends AppCompatActivity {
 	}
 	
 	public void testFunction(View v){
-		ArrayList<PokemonEntity> list = (ArrayList<PokemonEntity>) pdao.getPokemonLimit(10);
+		ArrayList<ItemDescription> list = (ArrayList<ItemDescription>) iddao.getAllItemDescriptions();
 		Log.d(TAG, list.size() + "");
-		for(PokemonEntity element : list){
-			ArrayList<LearnsetEntity> l = (ArrayList<LearnsetEntity>) ldao.getLearnsetOf(element.pokemon);
-			for(LearnsetEntity a : l){
-				Log.d(element.name, a.move);
-			}
+		for(ItemDescription element : list){
+			Log.d(element.name, element.item + " " + element.desc);
 		}
 	}
 }

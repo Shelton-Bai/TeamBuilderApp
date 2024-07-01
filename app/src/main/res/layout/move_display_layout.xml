@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/moveName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Menacing Moonraze Maelstrom"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/moveType"
+                app:layout_constraintStart_toEndOf="@+id/moveCategory"
+                app:layout_constraintTop_toTopOf="@+id/moveType" />
+
+            <ImageView
+                android:id="@+id/moveType"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/fire"
+                app:tint="#FF0000" />
+
+            <ImageView
+                android:id="@+id/moveCategory"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/moveType"
+                app:layout_constraintTop_toTopOf="@+id/moveType"
+                app:srcCompat="@drawable/fire"
+                app:tint="#FF0000" />
+
+            <TextView
+                android:id="@+id/moveDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="movedescription"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/moveType"
+                app:layout_constraintTop_toBottomOf="@+id/moveType" />
+
+            <TextView
+                android:id="@+id/movePower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Power: 250"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/moveType"
+                app:layout_constraintTop_toBottomOf="@+id/moveDescription" />
+
+            <TextView
+                android:id="@+id/moveAccuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:text="Accuracy: 100%"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/moveType"
+                app:layout_constraintTop_toTopOf="@+id/movePower" />
+
+            <TextView
+                android:id="@+id/movePP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="235dp"
+                android:text="PP: 24"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/moveType"
+                app:layout_constraintTop_toTopOf="@+id/moveAccuracy" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
