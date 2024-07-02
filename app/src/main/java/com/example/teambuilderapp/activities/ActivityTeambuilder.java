@@ -34,6 +34,7 @@ public class ActivityTeambuilder extends AppCompatActivity implements RosterView
 	private String TAG = "oogabooga";
 	PokemonTeam team;
 	Intent intent;
+	int position;
 	
 	EditText teamName;
 	Button backToTeams;
@@ -77,6 +78,8 @@ public class ActivityTeambuilder extends AppCompatActivity implements RosterView
 			team = (PokemonTeam) intent.getSerializableExtra("team");
 		}
 		
+		position = intent.getIntExtra("position", -1);
+		
 		teamName = findViewById(R.id.teamName);
 		teamName.setText(team.name);
 		backToTeams = findViewById(R.id.backToTeams);
@@ -93,17 +96,46 @@ public class ActivityTeambuilder extends AppCompatActivity implements RosterView
 		rosterView.setAdapter(rosterAdapter);
 		rosterView.setLayoutManager(new LinearLayoutManager(this));
 		
+		teamName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			
+			}
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				team.name = s.toString();
+				Log.d(TAG, team.name);
+			}
+		});
+		
 	}
 	
 	public void backButton(View v){
 		intent.putExtra("team", team);
+		intent.putExtra("position", position);
 		setResult(Activity.RESULT_OK, intent);
 		finish();
 	}
 	
 	public void onNewPokemonClick(View v){
 		if(team != null){
-		
+			PokemonEntity newMon = new PokemonEntity("No pokemon");
+			newMon.name = "No Pokemon";
+			newMon.ability0 = "No ability";
+			newMon.type1 = "Normal";
+			PokemonSet set = new PokemonSet(newMon);
+			team.roster.add(set);
+			int position = team.roster.size() - 1;
+			Intent editPokemon = new Intent(this, ActivitySetBuilder.class);
+			editPokemon.putExtra("set", set);
+			editPokemon.putExtra("position", position);
+			pokemonEditLauncher.launch(editPokemon);
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package com.example.teambuilderapp.activities;
 
+import static com.example.teambuilderapp.SearchHandling.itemSearch;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,20 +18,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teambuilderapp.ItemViewAdapter;
+import com.example.teambuilderapp.PokemonSet;
 import com.example.teambuilderapp.PokemonTeam;
 import com.example.teambuilderapp.R;
+import com.example.teambuilderapp.RecyclerViewInterface;
+import com.example.teambuilderapp.RosterViewAdapter;
+import com.example.teambuilderapp.TeamViewAdapter;
+import com.example.teambuilderapp.database.ItemDescription;
 
 import java.util.ArrayList;
 
-public class ActivityTeams extends AppCompatActivity {
+public class ActivityTeams extends AppCompatActivity implements RecyclerViewInterface {
 	private String TAG = "oogabooga";
 	public final int EDIT_TEAM = 1;
 	public final int MAKE_TEAM = 0;
 	
 	ArrayList<PokemonTeam> teams = new ArrayList<>();
 	
-	LinearLayout teamList;
+	RecyclerView teamList;
 	
 	ActivityResultLauncher<Intent> teambuilderLauncher = registerForActivityResult(
 			new ActivityResultContracts.StartActivityForResult(),
@@ -39,36 +49,25 @@ public class ActivityTeams extends AppCompatActivity {
 					PokemonTeam team;
 					if(data.getSerializableExtra("team") != null){
 						team = (PokemonTeam) data.getSerializableExtra("team");
+						
 					} else {
 						team = null;
 					}
 					
-					if(team != null){
-						Log.d(TAG, "team: " + team.toString());
-					} else {
-						Log.d(TAG, "team is null");
+					if(data.getIntExtra("position", -1) != -1){
+						int position = data.getIntExtra("position", -1);
+						if(team != null){
+							teams.set(position, team);
+							inflateAdapter("");
+							Log.d(TAG, "done: ");
+						}
 					}
 					
-					String action = data.getStringExtra("action");
-					if(action.equals("create")){
-						teams.add(team);
-					} else {
-						teams.set(data.getIntExtra("index", 0), team);
-					}
-					
-					listTeams(teamList);
-					
-//					TextView t = new TextView(getApplicationContext());
-//					t.setText(data.getStringExtra("newteam"));
-//					t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-//					t.setPadding(60, 20, 5, 5);
-//					t.setOnClickListener(new View.OnClickListener() {
-//						@Override
-//						public void onClick(View v) {
-//							editTeam(data.getStringExtra("newteam"));
-//						}
-//					});
-//					teamList.addView(t);
+//					if(team != null){
+//						Log.d(TAG, "team: " + team.toString());
+//					} else {
+//						Log.d(TAG, "team is null");
+//					}
 				
 				}
 			}
@@ -88,17 +87,21 @@ public class ActivityTeams extends AppCompatActivity {
 		
 		teamList = findViewById(R.id.teamList);
 		
-		//list all teams
-		listTeams(teamList);
+		inflateAdapter("");
+	}
+	
+	public void inflateAdapter(String s){
+		TeamViewAdapter adapter = new TeamViewAdapter(this, teams, this);
+		teamList.setAdapter(adapter);
+		teamList.setLayoutManager(new LinearLayoutManager(this));
 	}
 	
 	public void newTeam(View v){
 		PokemonTeam newTeam = new PokemonTeam("New Team");
-		
+		teams.add(newTeam);
 		Intent intent = new Intent(this, ActivityTeambuilder.class);
-		intent.putExtra("action", "create");
 		intent.putExtra("team", newTeam);
-		intent.putExtra("index", teams.size());
+		intent.putExtra("position", teams.size() - 1);
 		teambuilderLauncher.launch(intent);
 	}
 	
@@ -111,24 +114,19 @@ public class ActivityTeams extends AppCompatActivity {
 		teambuilderLauncher.launch(intent);
 	}
 	
-	public void listTeams(LinearLayout v){
-		//clear layout
-		v.removeAllViews();
-		//add each team view
-		for(int i = 0; i < teams.size(); i++){
-			PokemonTeam team = teams.get(i);
-			TextView t = new TextView(getApplicationContext());
-			t.setText(team.name);
-			t.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-			t.setPadding(60, 20, 5, 5);
-			int currIndex = i;
-			t.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					editTeam(team, currIndex);
-				}
-			});
-			v.addView(t);
+	@Override
+	public void onSetClick(int position) {
+		
+		TeamViewAdapter adapter = (TeamViewAdapter) teamList.getAdapter();
+		if (adapter != null) {
+			PokemonTeam team = adapter.teams.get(position);
+			
+			Intent intent = new Intent(getApplicationContext(), ActivityTeambuilder.class);
+			intent.putExtra("team", team);
+			intent.putExtra("position", position);
+			teambuilderLauncher.launch(intent);
+			
 		}
+		
 	}
 }
