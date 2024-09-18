@@ -14,14 +14,14 @@ import java.util.Map;
 
 public class PokemonSet implements Serializable {
 	//use serializable interface, might be slower than parcelable, so might switch later
-	public String name;
-	public String species;
-	public String gender;
-	public String item;
-	public String ability;
-	public int level;
-	public boolean shiny;
-	public String tera;
+	public String name; //
+	public String species; //
+	public String gender; //
+	public String item; //
+	public String ability; //
+	public int level; //
+	public boolean shiny; //
+	public String tera; //
 	public ArrayList<MoveEntity> moves;
 	public int[] evs;
 	public int[] ivs;
